@@ -44,7 +44,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function QuestionTabs() {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {

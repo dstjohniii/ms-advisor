@@ -10,7 +10,12 @@ import { Droppable } from "react-beautiful-dnd";
 
 import Task from "./Task";
 
-export default function ColumnType({ column, tasks, isDropDisabled }) {
+export default function ColumnType({
+  column,
+  tasks,
+  isDropDisabled,
+  isActive,
+}) {
   return (
     <Container
       fixed
@@ -22,6 +27,9 @@ export default function ColumnType({ column, tasks, isDropDisabled }) {
         padding: 1,
         display: "flex",
         flexDirection: "column",
+        backgroundColor: "white",
+        border: isActive ? 3 : 0,
+        borderColor: "green",
       }}
     >
       <Typography variant="h3">{column.title}</Typography>

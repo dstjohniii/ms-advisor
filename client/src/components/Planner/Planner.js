@@ -1,13 +1,20 @@
 import { Container, Typography } from "@mui/material";
 import { useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import ClassDrawer from "./ClassDrawer";
 import ColumnType from "./ColumnType";
 import initialData from "./initial-data";
+import { Paper } from "@mui/material";
+import Box from "@mui/material/Box";
 
 export default function Planner() {
   const [data, setData] = useState(initialData);
   const [homeIndex, setHomeIndex] = useState(null);
+  const [activeCol, setActiveCol] = useState(null);
+
+  const onColumnClick = (columnId) => {
+    setActiveCol(columnId);
+    //TODO filter the available classes based on questions and semester constraints.
+  };
 
   const onDragStart = (start) => {
     setHomeIndex(data.columnOrder.indexOf(start.source.droppableId));
@@ -77,26 +84,66 @@ export default function Planner() {
     setData(newData);
   };
 
+  const classes = data.columns.classes;
   return (
-    <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
-      <ClassDrawer />
+    <DragDropContext
+      onDragEnd={onDragEnd}
+      onDragStart={onDragStart}
+      sx={{ display: "flex" }}
+    >
       <Container sx={{ display: "flex" }}>
-        {data.columnOrder.map((columnId, index) => {
-          const column = data.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+        <Paper
+          sx={{
+            display: "flex",
+            marginRight: 10,
+            backgroundColor: (theme) => theme.palette.grey[400],
+          }}
+        >
+          <ColumnType
+            key={classes.id}
+            column={classes}
+            tasks={classes.taskIds.map((taskId) => data.tasks[taskId])}
+          />
+        </Paper>
 
-          //   const isDropDisabled = index < homeIndex; TODO setup to only allow draggable onto the selected column
-          const isDropDisabled = false;
+        <Paper
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            backgroundColor: (theme) => theme.palette.grey[400],
+            justifyContent: "center",
+          }}
+        >
+          {data.columnOrder.map((columnId, index) => {
+            const column = data.columns[columnId];
+            const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
 
-          return (
-            <ColumnType
-              key={column.id}
-              column={column}
-              tasks={tasks}
-              isDropDisabled={isDropDisabled}
-            />
-          );
-        })}
+            //   const isDropDisabled = index < homeIndex; TODO setup to only allow draggable onto the selected column
+            const isDropDisabled = activeCol !== column.id;
+            // const isDropDisabled = true;
+
+            return (
+              <Box
+                onClick={() => onColumnClick(column.id)}
+                sx={{
+                  display: "flex",
+                  paddingLeft: 0,
+                }}
+                key={column.id}
+                column={column}
+                tasks={tasks}
+              >
+                <ColumnType
+                  key={column.id}
+                  column={column}
+                  tasks={tasks}
+                  isDropDisabled={isDropDisabled}
+                  isActive={activeCol === column.id}
+                />
+              </Box>
+            );
+          })}
+        </Paper>
       </Container>
     </DragDropContext>
   );

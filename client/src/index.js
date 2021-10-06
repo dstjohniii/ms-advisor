@@ -6,6 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "typeface-roboto";
 
+import { BrowserRouter as Router } from "react-router-dom";
+
 const theme = createTheme({
   palette: {
     mode: "light",
@@ -21,14 +23,23 @@ const theme = createTheme({
     h2: {
       fontSize: "2.5rem",
     },
+    h3: {
+      fontSize: "1.78rem",
+    },
+  },
+  text: {
+    primary: "white",
+    secondary: "white",
   },
 });
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
+      <Router>
+        <CssBaseline />
+        <App />
+      </Router>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

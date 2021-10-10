@@ -8,7 +8,9 @@ import { FormControl, FormLabel } from "@mui/material";
 
 
 export default function CompletedCourses() {
-  let courseLabels = courses.map(a => a.subject + " " + a.courseNum + " - " + a.courseName)
+  let courseLabels = courses.map(
+    a => a.subject + " " + a.courseNum + " - " + a.courseName
+    );
 
   const options = courseLabels.map((item) => {
     return (

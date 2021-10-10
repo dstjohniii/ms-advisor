@@ -4,17 +4,13 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
-import parseCSVFile from "../../../csvParser";
-import rotationCSV from "../../../data/rotation_cleaned.csv";
 import { FormControl, FormLabel } from "@mui/material";
 
-var data = parseCSVFile(rotationCSV);
 
 export default function CompletedCourses() {
-  var rotation = data[0];
-  let classCodes = rotation.map(a => a.Discipline + " " + a.Number);
+  let courseLabels = courses.map(a => a.subject + " " + a.courseNum + " - " + a.courseName)
 
-  const options = classCodes.map((item) => {
+  const options = courseLabels.map((item) => {
     return (
       <FormControlLabel key={item} value={item} control={<Checkbox/>} label={item}>
         {item}

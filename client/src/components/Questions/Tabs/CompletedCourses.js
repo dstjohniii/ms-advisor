@@ -36,10 +36,7 @@ export default function CompletedCourses() {
       <Typography>Course stuff here</Typography>
       <FormGroup>
         <FormLabel>Select Courses</FormLabel>
-        <FormControlLabel
-          control={<Checkbox />}
-          label={options}
-        />
+        {options}
       </FormGroup>
     </Container>
   );

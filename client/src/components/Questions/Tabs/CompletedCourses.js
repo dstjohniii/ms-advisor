@@ -4,8 +4,6 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
-import { FormControl, FormLabel } from "@mui/material";
-
 
 export default function CompletedCourses() {
   let courseLabels = courses.map(
@@ -20,8 +18,6 @@ export default function CompletedCourses() {
       )
     });
 
-  console.log(options);
-
   return (
     <Container
       sx={{
@@ -31,9 +27,8 @@ export default function CompletedCourses() {
       }}
     >
       <Typography variant="h2">Completed and Transferred Courses</Typography>
-      <Typography>Course stuff here</Typography>
+      <Typography>Select courses already completed/in progress</Typography>
       <FormGroup>
-        <FormLabel>Select Courses</FormLabel>
         {options}
       </FormGroup>
     </Container>

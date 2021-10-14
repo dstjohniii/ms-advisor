@@ -12,6 +12,7 @@ export default function RestrictedCourses() {
 
   let courseLabels = courses.map(
     a => a.subject + " " + a.courseNum + " - " + a.courseName
+    
     );
 
   const options = courseLabels.map((item) => {

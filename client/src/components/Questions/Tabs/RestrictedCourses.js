@@ -3,9 +3,25 @@ import Container from "@mui/material/Container";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import parseCSVFile from '../../../csvParser';
+import dataFile from '../../../data/rotation_cleaned.csv';
+import courses from "../../../data/ClassInfo.json";
+
 
 export default function RestrictedCourses() {
- 
+
+  let courseLabels = courses.map(
+    a => a.subject + " " + a.courseNum + " - " + a.courseName
+    );
+
+  const options = courseLabels.map((item) => {
+    return (
+      <FormControlLabel key={item} value={item} control={<Checkbox/>} label={item}>
+        {item}
+      </FormControlLabel>
+      )
+    });
+
   return (
     <Container
       sx={{
@@ -14,71 +30,10 @@ export default function RestrictedCourses() {
         marginBottom: (theme) => theme.spacing(1),
       }}
     >
-      <Typography variant="h3">Restricted Courses</Typography>
-      <Typography>Please select any restricted courses</Typography>
-      <Typography variant="h2">COMPUTER SCIENCE</Typography>
+      <Typography variant="h2">Completed and Transferred Courses</Typography>
+      <Typography>Select restricted courses already completed/in progress</Typography>
       <FormGroup>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="1250 - Introduction to Computing"
-        />
-
-        <FormControlLabel
-          control={<Checkbox />}
-          label="2250 - Programming and Data Structures"
-        />
-
-        <FormControlLabel
-          control={<Checkbox />}
-          label="2261 - Oject-Oriented Programming"
-        />
-
-       <FormControlLabel
-          control={<Checkbox />}
-          label="2700 - Computer Organization & Architecture"
-        />
-
-      <FormControlLabel
-          control={<Checkbox />}
-          label="2750 - System Programming and Tools"
-        />
-
-       <FormControlLabel
-          control={<Checkbox />}
-          label="3010 - Web Programming"
-        />
-      
-      <FormControlLabel
-          control={<Checkbox />}
-          label="3130 - Design and Analysis of Algorithms"
-        />
-
-       <FormControlLabel
-          control={<Checkbox />}
-          label="1320 - Applied Statistics I"
-        />
- <Typography variant="h2">MATHEMATICS</Typography>
-      <FormControlLabel
-          control={<Checkbox />}
-          label="1800 - Analytic Geometry and Calculus I"
-        />
-
-      <FormControlLabel
-          control={<Checkbox />}
-          label="1900 - Analytic Geometry and Calculus II"
-        />
-
-      <FormControlLabel
-          control={<Checkbox />}
-          label="2450 - Elementary Linear Algebra"
-        />
-
-     <FormControlLabel
-          control={<Checkbox />}
-          label="3000 - Discrete Structures"
-        />
-
-
+        {options}
       </FormGroup>
     </Container>
   );

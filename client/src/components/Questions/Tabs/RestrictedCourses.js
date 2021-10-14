@@ -7,20 +7,39 @@ import parseCSVFile from '../../../csvParser';
 import dataFile from '../../../data/rotation_cleaned.csv';
 import courses from "../../../data/ClassInfo.json";
 
+function isRestricted(value){
+  let retValue=value.restricted
+  if(retValue=='true'){
+   retValue='true'
+  }
+  return retValue
+}
+
+let restCourses = courses.filter(isRestricted)
+
+let courseLabels = restCourses.map(
+  a => a.subject + " " + a.courseNum + " - " + a.courseName
+  );
+
 
 export default function RestrictedCourses() {
-
-  let courseLabels = courses.map(
-    a => a.subject + " " + a.courseNum + " - " + a.courseName
-    
-    );
-
+   
   const options = courseLabels.map((item) => {
     return (
-      <FormControlLabel key={item} value={item} control={<Checkbox/>} label={item}>
-        {item}
+      
+      
+      <FormControlLabel 
+      
+      key={item} 
+      value={item} 
+      control={<Checkbox/>} 
+      label={item}
+      >
+
       </FormControlLabel>
       )
+    
+
     });
 
   return (
@@ -31,7 +50,7 @@ export default function RestrictedCourses() {
         marginBottom: (theme) => theme.spacing(1),
       }}
     >
-      <Typography variant="h2">Completed and Transferred Courses</Typography>
+      <Typography variant="h2">Restricted Courses</Typography>
       <Typography>Select restricted courses already completed/in progress</Typography>
       <FormGroup>
         {options}

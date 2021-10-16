@@ -3,15 +3,10 @@ import Container from "@mui/material/Container";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import parseCSVFile from '../../../csvParser';
-import dataFile from '../../../data/rotation_cleaned.csv';
 import courses from "../../../data/ClassInfo.json";
 
 function isRestricted(value){
   let retValue=value.restricted
-  if(retValue=='true'){
-   retValue='true'
-  }
   return retValue
 }
 
@@ -21,25 +16,20 @@ let courseLabels = restCourses.map(
   a => a.subject + " " + a.courseNum + " - " + a.courseName
   );
 
-
 export default function RestrictedCourses() {
    
   const options = courseLabels.map((item) => {
     return (
       
-      
       <FormControlLabel 
-      
       key={item} 
       value={item} 
       control={<Checkbox/>} 
       label={item}
       >
-
       </FormControlLabel>
       )
     
-
     });
 
   return (

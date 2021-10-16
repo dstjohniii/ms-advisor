@@ -3,8 +3,35 @@ import Container from "@mui/material/Container";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import courses from "../../../data/ClassInfo.json";
+
+function isRestricted(value){
+  let retValue=value.restricted
+  return retValue
+}
+
+let restCourses = courses.filter(isRestricted)
+
+let courseLabels = restCourses.map(
+  a => a.subject + " " + a.courseNum + " - " + a.courseName
+  );
 
 export default function RestrictedCourses() {
+   
+  const options = courseLabels.map((item) => {
+    return (
+      
+      <FormControlLabel 
+      key={item} 
+      value={item} 
+      control={<Checkbox/>} 
+      label={item}
+      >
+      </FormControlLabel>
+      )
+    
+    });
+
   return (
     <Container
       sx={{
@@ -14,16 +41,9 @@ export default function RestrictedCourses() {
       }}
     >
       <Typography variant="h2">Restricted Courses</Typography>
-      <Typography>Instructions go here.</Typography>
+      <Typography>Select restricted courses already completed/in progress</Typography>
       <FormGroup>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="1250 - Introduction to Computing"
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="2250 - Programming and Data Structures"
-        />
+        {options}
       </FormGroup>
     </Container>
   );

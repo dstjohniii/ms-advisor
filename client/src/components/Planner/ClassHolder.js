@@ -1,21 +1,16 @@
 import { Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 import { Droppable } from "react-beautiful-dnd";
-
 import Task from "./Task";
 
-export default function ColumnType({
+export default function ClassHolder({
   column,
   tasks,
   isDropDisabled,
   isActive,
 }) {
+  console.log(`tasks`, tasks);
   return (
     <Container
       fixed
@@ -26,6 +21,8 @@ export default function ColumnType({
         width: 300,
         padding: 1,
         display: "flex",
+        overflowY: "scroll",
+        maxHeight: 750,
         flexDirection: "column",
         backgroundColor: "white",
         border: isActive ? 3 : 0,
@@ -46,7 +43,7 @@ export default function ColumnType({
             }}
           >
             {tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
+              <Task key={task?.id} task={task} index={index} />
             ))}
             {provided.placeholder}
           </List>

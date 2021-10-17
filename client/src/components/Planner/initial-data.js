@@ -1,15 +1,10 @@
 const initialData = {
-  tasks: {
-    1: { id: "1", content: "CS5500 - Computer Engineering" },
-    2: { id: "2", content: "CS6000 - Basket Weaving" },
-    3: { id: "3", content: "CS4000 - French Fry Cooking" },
-    4: { id: "4", content: "CS5200 - Basic Programming" },
-  },
+  classes: {},
   columns: {
-    classes: {
-      id: "classes",
+    "available-classes": {
+      id: "available-classes",
       title: "Available Classes",
-      taskIds: ["1", "2", "3", "4"],
+      taskIds: [],
     },
     "sp-2022": {
       id: "sp-2022",

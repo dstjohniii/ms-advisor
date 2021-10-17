@@ -10,7 +10,6 @@ export default function ClassHolder({
   isDropDisabled,
   isActive,
 }) {
-  console.log(`tasks`, tasks);
   return (
     <Container
       fixed

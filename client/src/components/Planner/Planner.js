@@ -84,7 +84,6 @@ export default function Planner({ data, setData }) {
   };
 
   const availableClasses = data.columns["available-classes"];
-  console.log(`availableClasses`, availableClasses);
   return (
     <DragDropContext
       onDragEnd={onDragEnd}

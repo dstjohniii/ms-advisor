@@ -11,7 +11,7 @@ import getUniqueAfterMerge from "../helper/arrayUtils";
 // populate initial data with available classes
 for (let i = 0; i < courses.length; i++) {
   const element = courses[i];
-  const id = "" + element.courseNum;
+  const id = String(element.courseNum);
 
   initialData.classes[id] = {
     id: id,
@@ -20,38 +20,42 @@ for (let i = 0; i < courses.length; i++) {
   initialData.columns["available-classes"].taskIds.push(id);
 }
 
-const filterClasses = ({ data, setData }) => {
-  const cClass = csvClasses();
-  let filteredData = { ...initialData };
+const filterClasses = async () => {
+  const cClass = await csvClasses();
+  const filteredData = { ...initialData };
   const restrictedCourses = courses.filter((c) => c.restricted);
-  const restrictedCourseNums = restrictedCourses.map((fc) => "" + fc.courseNum);
-
-  const asArray = Object.entries(initialData.classes);
-  filteredData.classes = asArray.filter(
-    ([k, v]) => restrictedCourseNums.includes(k) || cClass.includes(k)
+  const restrictedCourseNums = restrictedCourses.map((fc) =>
+    String(fc.courseNum)
   );
-  filteredData.classes = Object.fromEntries(filteredData.classes);
+
+  filteredData.classes = Object.entries(initialData.classes).reduce(
+    (acc, [k, v]) => {
+      if (restrictedCourseNums?.includes(k) || cClass?.includes(k)) {
+        return { ...acc, [k]: v };
+      }
+      return acc;
+    },
+    {}
+  );
   filteredData.columns["available-classes"].taskIds = getUniqueAfterMerge(
     restrictedCourseNums,
     cClass
   );
-
-  console.log(`filteredData`, filteredData);
-  setData(filteredData);
+  return filteredData;
 };
 
 export default function AdvisorRouter() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(null);
 
   //Filter out courses
-  useEffect(() => filterClasses({ data, setData }), []);
-
-  console.log(`data`, data);
+  useEffect(() => {
+    filterClasses().then((data) => setData(data));
+  }, []);
 
   return (
     <Switch>
       <Route path="/planner">
-        <Planner data={data} setData={setData} />
+        {data ? <Planner data={data} setData={setData} /> : null}
       </Route>
       <Route path="/">
         <Link

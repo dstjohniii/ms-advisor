@@ -1,5 +1,4 @@
 import Papa from "papaparse";
-import { parse } from "csv-parse/lib/sync";
 
 export default function parseCSVFile(csvFile) {
   var data = [];
@@ -11,12 +10,6 @@ export default function parseCSVFile(csvFile) {
       data.push(records);
     },
   });
+  console.log(`datasss`, data);
   return data;
 }
-
-// export default function parseCSVFile(csvFile) {
-//   return parse(csvFile, {
-//     columns: true,
-//     skip_empty_lines: true,
-//   });
-// }

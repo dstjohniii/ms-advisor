@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import { Droppable } from "react-beautiful-dnd";
 import Task from "./Task";
@@ -11,19 +11,16 @@ export default function ColumnType({
   isActive,
 }) {
   return (
-    <Container
+    <Paper
       fixed
       sx={{
         margin: (theme) => theme.spacing(1),
-        boxShadow: 1,
-        borderRadius: 1,
         width: 300,
         padding: 1,
         display: "flex",
         overflowY: "scroll",
         maxHeight: 240,
         flexDirection: "column",
-        backgroundColor: "white",
         border: isActive ? 3 : 0,
         borderColor: "green",
       }}
@@ -48,6 +45,6 @@ export default function ColumnType({
           </List>
         )}
       </Droppable>
-    </Container>
+    </Paper>
   );
 }

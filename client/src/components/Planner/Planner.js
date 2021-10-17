@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
 import Semester from "./Semester";
@@ -7,7 +7,6 @@ import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 
 export default function Planner({ data, setData }) {
-  const [homeIndex, setHomeIndex] = useState(null);
   const [activeCol, setActiveCol] = useState(null);
 
   const onColumnClick = (columnId) => {
@@ -15,13 +14,7 @@ export default function Planner({ data, setData }) {
     //TODO filter the available classes based on questions and semester constraints.
   };
 
-  const onDragStart = (start) => {
-    setHomeIndex(data.columnOrder.indexOf(start.source.droppableId));
-  };
-
   const onDragEnd = ({ destination, source, draggableId }) => {
-    setHomeIndex(null);
-
     if (!destination) {
       return;
     }
@@ -84,12 +77,13 @@ export default function Planner({ data, setData }) {
   };
 
   const availableClasses = data.columns["available-classes"];
+  const availableTasks = useMemo(
+    () => availableClasses.taskIds.map((taskId) => data.classes[taskId]),
+    [availableClasses.taskIds, data.classes]
+  );
+
   return (
-    <DragDropContext
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStart}
-      sx={{ display: "flex" }}
-    >
+    <DragDropContext onDragEnd={onDragEnd} sx={{ display: "flex" }}>
       <Container sx={{ display: "flex", maxHeight: 800 }}>
         <Paper
           sx={{
@@ -101,9 +95,7 @@ export default function Planner({ data, setData }) {
           <ClassHolder
             key={availableClasses.id}
             column={availableClasses}
-            tasks={availableClasses.taskIds.map(
-              (taskId) => data.classes[taskId]
-            )}
+            tasks={availableTasks}
           />
         </Paper>
 
@@ -119,7 +111,6 @@ export default function Planner({ data, setData }) {
             const column = data.columns[columnId];
             const tasks = column.taskIds.map((taskId) => data.classes[taskId]);
 
-            //   const isDropDisabled = index < homeIndex; TODO setup to only allow draggable onto the selected column
             const isDropDisabled = activeCol !== column.id;
             // const isDropDisabled = true;
 

@@ -1,8 +1,6 @@
 import ListItem from "@mui/material/ListItem";
 import { Draggable } from "react-beautiful-dnd";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DragHandleIcon from "@mui/icons-material/DragHandle";
 
 export default function Task({ task, index }) {
   return (

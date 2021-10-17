@@ -7,7 +7,7 @@ import courses from "../../../data/ClassInfo.json";
 
 export default function CompletedCourses() {
   let courseLabels = courses.map(
-    (a) => a.subject + " " + a.courseNum + " - " + a.courseName
+    (a) => `${a.subject} ${a.courseNum} - ${a.courseName}`
   );
 
   const options = courseLabels.map((item) => {
@@ -17,9 +17,7 @@ export default function CompletedCourses() {
         value={item}
         control={<Checkbox />}
         label={item}
-      >
-        {item}
-      </FormControlLabel>
+      />
     );
   });
 

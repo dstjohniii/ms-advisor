@@ -6,13 +6,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import courses from "../../../data/ClassInfo.json";
 
 export default function Required6000Courses() {
-  function is6000(value) {
-    let str = value.courseNum.toString();
-    return str.charAt(0) === '6';
-  }
+  
+  const courses6000 = courses.filter(
+    (v) => v.courseNum.toString().charAt(0) === '6'
+    );
 
-  let courseLabels = courses.filter(is6000).map(
-    a => a.subject + " " + a.courseNum + " - " + a.courseName
+  const courseLabels = courses6000.map(
+    (a) => `${a.subject} ${a.courseNum} - ${a.courseName}`
     );
 
   const options = courseLabels.map((item) => {

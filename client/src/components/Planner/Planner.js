@@ -1,14 +1,12 @@
-import { Container, Typography } from "@mui/material";
-import { useState } from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import ColumnType from "./ColumnType";
-import initialData from "./initial-data";
+import { Container } from "@mui/material";
+import { useState, useMemo } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
+import ClassHolder from "./ClassHolder";
+import Semester from "./Semester";
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 
-export default function Planner() {
-  const [data, setData] = useState(initialData);
-  const [homeIndex, setHomeIndex] = useState(null);
+export default function Planner({ data, setData }) {
   const [activeCol, setActiveCol] = useState(null);
 
   const onColumnClick = (columnId) => {
@@ -16,13 +14,7 @@ export default function Planner() {
     //TODO filter the available classes based on questions and semester constraints.
   };
 
-  const onDragStart = (start) => {
-    setHomeIndex(data.columnOrder.indexOf(start.source.droppableId));
-  };
-
   const onDragEnd = ({ destination, source, draggableId }) => {
-    setHomeIndex(null);
-
     if (!destination) {
       return;
     }
@@ -84,14 +76,15 @@ export default function Planner() {
     setData(newData);
   };
 
-  const classes = data.columns.classes;
+  const availableClasses = data.columns["available-classes"];
+  const availableTasks = useMemo(
+    () => availableClasses.taskIds.map((taskId) => data.classes[taskId]),
+    [availableClasses.taskIds, data.classes]
+  );
+
   return (
-    <DragDropContext
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStart}
-      sx={{ display: "flex" }}
-    >
-      <Container sx={{ display: "flex" }}>
+    <DragDropContext onDragEnd={onDragEnd} sx={{ display: "flex" }}>
+      <Container sx={{ display: "flex", maxHeight: 800 }}>
         <Paper
           sx={{
             display: "flex",
@@ -99,10 +92,10 @@ export default function Planner() {
             backgroundColor: (theme) => theme.palette.grey[400],
           }}
         >
-          <ColumnType
-            key={classes.id}
-            column={classes}
-            tasks={classes.taskIds.map((taskId) => data.tasks[taskId])}
+          <ClassHolder
+            key={availableClasses.id}
+            column={availableClasses}
+            tasks={availableTasks}
           />
         </Paper>
 
@@ -116,9 +109,8 @@ export default function Planner() {
         >
           {data.columnOrder.map((columnId, index) => {
             const column = data.columns[columnId];
-            const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+            const tasks = column.taskIds.map((taskId) => data.classes[taskId]);
 
-            //   const isDropDisabled = index < homeIndex; TODO setup to only allow draggable onto the selected column
             const isDropDisabled = activeCol !== column.id;
             // const isDropDisabled = true;
 
@@ -133,7 +125,7 @@ export default function Planner() {
                 column={column}
                 tasks={tasks}
               >
-                <ColumnType
+                <Semester
                   key={column.id}
                   column={column}
                   tasks={tasks}

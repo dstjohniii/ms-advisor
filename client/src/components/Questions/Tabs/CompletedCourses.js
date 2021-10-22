@@ -7,16 +7,19 @@ import courses from "../../../data/ClassInfo.json";
 
 export default function CompletedCourses() {
   let courseLabels = courses.map(
-    a => a.subject + " " + a.courseNum + " - " + a.courseName
-    );
+    (a) => `${a.subject} ${a.courseNum} - ${a.courseName}`
+  );
 
   const options = courseLabels.map((item) => {
     return (
-      <FormControlLabel key={item} value={item} control={<Checkbox/>} label={item}>
-        {item}
-      </FormControlLabel>
-      )
-    });
+      <FormControlLabel
+        key={item}
+        value={item}
+        control={<Checkbox />}
+        label={item}
+      />
+    );
+  });
 
   return (
     <Container
@@ -28,9 +31,7 @@ export default function CompletedCourses() {
     >
       <Typography variant="h2">Completed and Transferred Courses</Typography>
       <Typography>Select courses already completed/in progress</Typography>
-      <FormGroup>
-        {options}
-      </FormGroup>
+      <FormGroup>{options}</FormGroup>
     </Container>
   );
 }

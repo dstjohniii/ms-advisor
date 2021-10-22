@@ -1,7 +1,6 @@
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import QuestionTabs from "./components/Questions/QuestionTabs";
 import AdvisorRouter from "./components/AdvisorRouter";
 import Link from "@mui/material/Link";
 import { Breadcrumbs } from "@mui/material";
@@ -10,8 +9,6 @@ import {
   useRouteMatch,
   useLocation,
 } from "react-router-dom";
-
-import Planner from "./components/Planner/Planner";
 
 function formatTitle(title) {
   if (!title) return "Dashboard";

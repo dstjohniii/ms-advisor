@@ -5,46 +5,35 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
-function isRestricted(value){
-  let retValue=value.restricted
-  return retValue
-}
-
-let restCourses = courses.filter(isRestricted)
-
-let courseLabels = restCourses.map(
-  a => a.subject + " " + a.courseNum + " - " + a.courseName
-  );
+const restCourses = courses.filter((v) => v.restricted);
+const courseLabels = restCourses.map(
+  (a) => `${a.subject} ${a.courseNum} - ${a.courseName}`
+);
 
 export default function RestrictedCourses() {
-   
   const options = courseLabels.map((item) => {
     return (
-      
-      <FormControlLabel 
-      key={item} 
-      value={item} 
-      control={<Checkbox/>} 
-      label={item}
-      >
-      </FormControlLabel>
-      )
-    
-    });
+      <FormControlLabel
+        key={item}
+        value={item}
+        control={<Checkbox />}
+        label={item}
+      />
+    );
+  });
 
   return (
     <Container
       sx={{
-        marginTop: (theme) => theme.spacing(1),
+        my: (theme) => theme.spacing(1),
         padding: (theme) => theme.spacing(1),
-        marginBottom: (theme) => theme.spacing(1),
       }}
     >
       <Typography variant="h2">Restricted Courses</Typography>
-      <Typography>Select restricted courses already completed/in progress</Typography>
-      <FormGroup>
-        {options}
-      </FormGroup>
+      <Typography>
+        Select restricted courses already completed/in progress
+      </Typography>
+      <FormGroup>{options}</FormGroup>
     </Container>
   );
 }

@@ -5,15 +5,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
-function isRestricted(value) {
-  let retValue = value.restricted;
-  return retValue;
-}
-
-let restCourses = courses.filter(isRestricted);
-
-let courseLabels = restCourses.map(
-  (a) => a.subject + " " + a.courseNum + " - " + a.courseName
+const restCourses = courses.filter((v) => v.restricted);
+const courseLabels = restCourses.map(
+  (a) => `${a.subject} ${a.courseNum} - ${a.courseName}`
 );
 
 export default function RestrictedCourses() {
@@ -24,7 +18,7 @@ export default function RestrictedCourses() {
         value={item}
         control={<Checkbox />}
         label={item}
-      ></FormControlLabel>
+      />
     );
   });
 

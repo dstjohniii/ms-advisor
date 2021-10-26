@@ -5,28 +5,27 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
-function isRequired(value) {
-  let retValue = value.core;
-  return retValue;
-}
 
-let restCourses = courses.filter(isRequired);
+let restCourses = courses.filter((restCourses)=>restCourses.core)
 
 let courseLabels = restCourses.map(
-  (a) => a.subject + " " + a.courseNum + " - " + a.courseName
-);
+  a => a.subject + " " + a.courseNum + " - " + a.courseName
+  );
 
 export default function RestrictedCourses() {
+   
   const options = courseLabels.map((item) => {
     return (
-      <FormControlLabel
-        key={item}
-        value={item}
-        control={<Checkbox />}
-        label={item}
-      ></FormControlLabel>
-    );
-  });
+      
+      <FormControlLabel 
+      key={item} 
+      value={item} 
+      control={<Checkbox/>} 
+      label={item}
+      />
+      )
+    
+    });
 
   return (
     <Container
@@ -37,10 +36,10 @@ export default function RestrictedCourses() {
       }}
     >
       <Typography variant="h2">Waived Courses</Typography>
-      <Typography>
-        Select waived courses already completed/in progress
-      </Typography>
-      <FormGroup>{options}</FormGroup>
+      <Typography>Select waived courses already completed/in progress</Typography>
+      <FormGroup>
+        {options}
+      </FormGroup>
     </Container>
   );
 }

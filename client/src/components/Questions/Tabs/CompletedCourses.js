@@ -2,21 +2,34 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
 export default function CompletedCourses() {
+  const [checkedItems, setCheckedItems] = useState({});
+
+  const handleChange = (e) => {
+    setCheckedItems({...checkedItems, [e.target.name] : e.target.checked });
+  }
+
+  useEffect(() => {
+    console.log("checkedItems: ", checkedItems);
+  }, [checkedItems]);
+
   const options = courses.map((item) => {
     let label = `${item.subject} ${item.courseNum} - ${item.courseName}`
+    let name = `${item.subject}${item.courseNum}`
+    
     return (
       <FormControlLabel
+        label={label}
         key={label}
         value={item}
-        control={<Checkbox />}
-        label={label}
+        control={<Checkbox name={name} onChange={handleChange}/>}
       />
     );
+
   });
 
   return (

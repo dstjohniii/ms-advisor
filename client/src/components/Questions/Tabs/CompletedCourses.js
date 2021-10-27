@@ -2,21 +2,19 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
 export default function CompletedCourses() {
-  let courseLabels = courses.map(
-    (a) => `${a.subject} ${a.courseNum} - ${a.courseName}`
-  );
-
-  const options = courseLabels.map((item) => {
+  const options = courses.map((item) => {
+    let label = `${item.subject} ${item.courseNum} - ${item.courseName}`
     return (
       <FormControlLabel
-        key={item}
+        key={label}
         value={item}
         control={<Checkbox />}
-        label={item}
+        label={label}
       />
     );
   });

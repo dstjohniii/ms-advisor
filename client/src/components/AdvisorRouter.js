@@ -26,7 +26,7 @@ export default function AdvisorRouter() {
           component={RouterLink}
           to="/planner"
         >
-          Planner
+          Course Planning
         </Link>
         <QuestionTabs />
       </Route>

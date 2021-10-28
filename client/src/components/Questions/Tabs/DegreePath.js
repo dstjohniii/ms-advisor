@@ -5,6 +5,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import Link from "@mui/material/Link";
 
 export default function DegreePath() {
   return (
@@ -68,6 +69,12 @@ export default function DegreePath() {
           <FormControlLabel value="none" control={<Radio />} label="None" />
         </RadioGroup>
       </FormControl>
+      <br></br>
+      <br></br>
+      <Typography variant= "h5" display = "block"> Additional information can be found here:</Typography>
+      <Typography variant = "overline" display = "block"><Link target = "_blank" href = "http://www.umsl.edu/cmpsci/graduate-studies/graduate-degree-programs.html"> Click here for Graduate Degree Programs</Link></Typography>
+      <Typography variant = "overline" display = "block"><Link target = "_blank" href = "http://www.umsl.edu/cmpsci/certificates/graduate-certificates.html"> Click here for Graduate Certificate Rules</Link></Typography>
+
     </Container>
   );
 }

@@ -1,20 +1,33 @@
 import { Container } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
 import Semester from "./Semester";
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
+import { isOffered } from "../../helper/rotationHelper.js";
 
-export default function Planner({ data, setData }) {
-  const [activeCol, setActiveCol] = useState(null);
+export default function Planner({ data, setData, csvData }) {
+  const [availableCols, setAvailableCols] = useState(null);
 
-  const onColumnClick = (columnId) => {
-    setActiveCol(columnId);
-    //TODO filter the available classes based on questions and semester constraints.
+  const onDragStart = ({ draggableId }) => {
+    if (!csvData) {
+      return;
+    }
+
+    const cols = [];
+    data.columnOrder.forEach((key) => {
+      if (isOffered(draggableId, key, csvData)) {
+        cols.push(key);
+      }
+    });
+    cols.push("available-classes");
+    setAvailableCols(cols);
   };
 
   const onDragEnd = ({ destination, source, draggableId }) => {
+    setAvailableCols(null);
+
     if (!destination) {
       return;
     }
@@ -83,7 +96,11 @@ export default function Planner({ data, setData }) {
   );
 
   return (
-    <DragDropContext onDragEnd={onDragEnd} sx={{ display: "flex" }}>
+    <DragDropContext
+      onDragEnd={onDragEnd}
+      onDragStart={onDragStart}
+      sx={{ display: "flex" }}
+    >
       <Container sx={{ display: "flex", maxHeight: 800 }}>
         <Paper
           sx={{
@@ -111,12 +128,10 @@ export default function Planner({ data, setData }) {
             const column = data.columns[columnId];
             const tasks = column.taskIds.map((taskId) => data.classes[taskId]);
 
-            const isDropDisabled = activeCol !== column.id;
-            // const isDropDisabled = true;
+            const isDropDisabled = !availableCols?.includes(column.id);
 
             return (
               <Box
-                onClick={() => onColumnClick(column.id)}
                 sx={{
                   display: "flex",
                   paddingLeft: 0,
@@ -130,7 +145,7 @@ export default function Planner({ data, setData }) {
                   column={column}
                   tasks={tasks}
                   isDropDisabled={isDropDisabled}
-                  isActive={activeCol === column.id}
+                  isActive={availableCols?.includes(column.id)}
                 />
               </Box>
             );

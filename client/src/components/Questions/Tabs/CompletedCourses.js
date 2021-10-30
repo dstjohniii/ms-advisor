@@ -2,25 +2,23 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
-export default function CompletedCourses() {
-  const [compCourses, setCompCourses] = useState({});
-
+export default function CompletedCourses(params) {
   const handleChange = (e) => {
     if (e.target.checked) {
-      setCompCourses({...compCourses, [e.target.id] : e.target.value});
+      params.setCompCourses({...params.compCourses, [e.target.id] : e.target.value});
     } else {
-      delete compCourses[e.target.id];
-      setCompCourses({...compCourses})
+      delete params.compCourses[e.target.id];
+      params.setCompCourses({...params.compCourses})
     }
   }
 
   useEffect(() => {
-    console.log("checkedItems: ", compCourses);
-  }, [compCourses]);
+    console.log("checkedItems: ", params.compCourses);
+  }, [params.compCourses]);
 
   const options = courses.map((item) => {
     let label = `${item.subject} ${item.courseNum} - ${item.courseName}`

@@ -7,6 +7,7 @@ import { getAvailableClasses } from "../helper/rotationHelper.js";
 
 export default function AdvisorRouter() {
   const [data, setData] = useState(null);
+  const [compCourses, setCompCourses] = useState({});
 
   //Filter out courses
   useEffect(() => {
@@ -28,7 +29,10 @@ export default function AdvisorRouter() {
         >
           Planner
         </Link>
-        <QuestionTabs />
+        <QuestionTabs 
+          compCourses={compCourses} 
+          setCompCourses={setCompCourses}
+        />
       </Route>
       <Route path="*">
         <Redirect to="/" />

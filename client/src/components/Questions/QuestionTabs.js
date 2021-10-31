@@ -44,9 +44,8 @@ function a11yProps(index) {
   };
 }
 
-export default function QuestionTabs() {
+export default function QuestionTabs(params) {
   const [value, setValue] = useState(0);
-  const [compCourses, setCompCourses] = useState({});
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,7 +73,9 @@ export default function QuestionTabs() {
         <RestrictedCourses />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <CompletedCourses compCourses={compCourses} setCompCourses={setCompCourses}/>
+        <CompletedCourses 
+          compCourses={params.compCourses} 
+          setCompCourses={params.setCompCourses}/>
       </TabPanel>
       <TabPanel value={value} index={4}>
         <WaivedCourses />

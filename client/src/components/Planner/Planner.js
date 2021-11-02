@@ -8,9 +8,9 @@ import Box from "@mui/material/Box";
 
 export default function Planner({ data, setData, courseState }) {
   const [activeCol, setActiveCol] = useState(null);
-
-  console.log(courseState);
   
+  //This is used to see the items in the console
+  //Useful for debugging
   useEffect(() => {
     console.log("checkedItemsPlanner: ", courseState);
   }, [courseState]);

@@ -4,7 +4,6 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import { get as _get } from "lodash"
 import courses from "../../../data/ClassInfo.json";
 
 export default function CompletedCourses(params) {
@@ -25,6 +24,8 @@ export default function CompletedCourses(params) {
     }
   }
 
+  //This is used to see the items in the console
+  //Useful for debugging
   useEffect(() => {
     console.log("checkedItems: ", params.courseState);
   }, [params.courseState]);

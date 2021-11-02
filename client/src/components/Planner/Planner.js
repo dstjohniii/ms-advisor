@@ -1,13 +1,19 @@
 import { Container } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
 import Semester from "./Semester";
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 
-export default function Planner({ data, setData }) {
+export default function Planner({ data, setData, compCourses }) {
   const [activeCol, setActiveCol] = useState(null);
+
+  console.log(compCourses);
+  
+  useEffect(() => {
+    console.log("checkedItemsPlanner: ", compCourses);
+  }, [compCourses]);
 
   const onColumnClick = (columnId) => {
     setActiveCol(columnId);

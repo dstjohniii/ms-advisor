@@ -9,13 +9,11 @@ import courses from "../../../data/ClassInfo.json";
 
 export default function CompletedCourses(params) {
   const handleChange = (e) => {
-    //I had to pass the value as a string and then reconvert to object
-    //Passing as an object just returns a string "[object Object]"
-    //If someone smarter than me can make this less messy, go ahead
-    let course = JSON.parse(e.target.value);
-    course['isChecked'] = e.target.checked;
     if (e.target.checked) {
-      params.setCompCourses({...params.compCourses, [e.target.id] : course});
+      let newArray = params.compCourses.completed.slice();
+      newArray.push(e.target.id);
+      const newCompCourses = {...params.compCourses, completed: newArray};
+      params.setCompCourses(newCompCourses);
     } else {
       delete params.compCourses[e.target.id];
       params.setCompCourses({...params.compCourses})
@@ -29,11 +27,7 @@ export default function CompletedCourses(params) {
   const options = courses.map((item) => {
     let label = `${item.subject} ${item.courseNum} - ${item.courseName}`
     let id = `${item.subject.charAt(0)}${item.courseNum}`
-    let strItem = JSON.stringify(item);
-    //If never checked, 'isChecked' is undefined
-    //Use short-circut evaluation to set undefined values to false
-    //Makes MUI happy
-    let checked = _get(params.compCourses, [id, 'isChecked']) || false;
+    let checked = params.compCourses.completed.includes(id);
     
     return (
       <FormControlLabel
@@ -45,7 +39,7 @@ export default function CompletedCourses(params) {
           <Checkbox 
             id={id} 
             checked={checked} 
-            value={strItem} 
+            value={item} 
             onChange={handleChange}
           />}
       />

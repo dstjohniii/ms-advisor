@@ -7,7 +7,9 @@ import { getAvailableClasses } from "../helper/rotationHelper.js";
 
 export default function AdvisorRouter() {
   const [data, setData] = useState(null);
-  const [compCourses, setCompCourses] = useState({});
+  const [compCourses, setCompCourses] = useState({completed: []});
+
+  console.log(compCourses);
 
   //Filter out courses
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function AdvisorRouter() {
   return (
     <Switch>
       <Route path="/planner">
-        {data ? <Planner data={data} setData={setData} /> : null}
+        {data ? <Planner data={data} setData={setData} compCourses={compCourses}/> : null}
       </Route>
       <Route path="/">
         <Link

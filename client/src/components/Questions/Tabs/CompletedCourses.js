@@ -13,26 +13,26 @@ export default function CompletedCourses(params) {
       //Copy to a new array and push the new item to it
       //Then add the new array to the state object and update
       //If there's a fancy way of doing this, please change it
-      let newArray = params.compCourses.completed.slice();
+      let newArray = params.courseState.completed.slice();
       newArray.push(e.target.id);
-      const newCompCourses = {...params.compCourses, completed: newArray};
-      params.setCompCourses(newCompCourses);
+      const newCompCourses = {...params.courseState, completed: newArray};
+      params.setCourseState(newCompCourses);
     } else {
-      let newArray = params.compCourses.completed.slice();
+      let newArray = params.courseState.completed.slice();
       let filteredArray = newArray.filter(item => item !== e.target.id);
-      const newCompCourses = {...params.compCourses, completed: filteredArray};
-      params.setCompCourses(newCompCourses);
+      const newCompCourses = {...params.courseState, completed: filteredArray};
+      params.setCourseState(newCompCourses);
     }
   }
 
   useEffect(() => {
-    console.log("checkedItems: ", params.compCourses);
-  }, [params.compCourses]);
+    console.log("checkedItems: ", params.courseState);
+  }, [params.courseState]);
 
   const options = courses.map((item) => {
     let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
     let id = `${item.subject.charAt(0)}${item.courseNum}`;
-    let checked = params.compCourses.completed.includes(id);
+    let checked = params.courseState.completed.includes(id);
     
     return (
       <FormControlLabel

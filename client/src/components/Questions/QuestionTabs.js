@@ -74,8 +74,8 @@ export default function QuestionTabs(params) {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <CompletedCourses 
-          compCourses={params.compCourses} 
-          setCompCourses={params.setCompCourses}/>
+          courseState={params.courseState} 
+          setCourseState={params.setCourseState}/>
       </TabPanel>
       <TabPanel value={value} index={4}>
         <WaivedCourses />

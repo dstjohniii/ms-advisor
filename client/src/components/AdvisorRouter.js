@@ -7,9 +7,8 @@ import { getAvailableClasses } from "../helper/rotationHelper.js";
 
 export default function AdvisorRouter() {
   const [data, setData] = useState(null);
-  const [compCourses, setCompCourses] = useState({completed: []});
-
-  console.log(compCourses);
+  //Not crazy about this name, willing to change
+  const [courseState, setCourseState] = useState({completed: []});
 
   //Filter out courses
   useEffect(() => {
@@ -19,7 +18,11 @@ export default function AdvisorRouter() {
   return (
     <Switch>
       <Route path="/planner">
-        {data ? <Planner data={data} setData={setData} compCourses={compCourses}/> : null}
+        {data ? <Planner 
+          data={data} 
+          setData={setData} 
+          courseState={courseState}
+        /> : null}
       </Route>
       <Route path="/">
         <Link
@@ -32,8 +35,8 @@ export default function AdvisorRouter() {
           Planner
         </Link>
         <QuestionTabs 
-          compCourses={compCourses} 
-          setCompCourses={setCompCourses}
+          courseState={courseState} 
+          setCourseState={setCourseState}
         />
       </Route>
       <Route path="*">

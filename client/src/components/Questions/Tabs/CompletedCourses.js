@@ -10,13 +10,18 @@ import courses from "../../../data/ClassInfo.json";
 export default function CompletedCourses(params) {
   const handleChange = (e) => {
     if (e.target.checked) {
+      //Copy to a new array and push the new item to it
+      //Then add the new array to the state object and update
+      //If there's a fancy way of doing this, please change it
       let newArray = params.compCourses.completed.slice();
       newArray.push(e.target.id);
       const newCompCourses = {...params.compCourses, completed: newArray};
       params.setCompCourses(newCompCourses);
     } else {
-      delete params.compCourses[e.target.id];
-      params.setCompCourses({...params.compCourses})
+      let newArray = params.compCourses.completed.slice();
+      let filteredArray = newArray.filter(item => item !== e.target.id);
+      const newCompCourses = {...params.compCourses, completed: filteredArray};
+      params.setCompCourses(newCompCourses);
     }
   }
 
@@ -25,8 +30,8 @@ export default function CompletedCourses(params) {
   }, [params.compCourses]);
 
   const options = courses.map((item) => {
-    let label = `${item.subject} ${item.courseNum} - ${item.courseName}`
-    let id = `${item.subject.charAt(0)}${item.courseNum}`
+    let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
+    let id = `${item.subject.charAt(0)}${item.courseNum}`;
     let checked = params.compCourses.completed.includes(id);
     
     return (

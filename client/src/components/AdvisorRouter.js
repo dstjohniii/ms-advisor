@@ -3,15 +3,17 @@ import { useState, useEffect } from "react";
 import Planner from "./Planner/Planner";
 import QuestionTabs from "./Questions/QuestionTabs";
 import Link from "@mui/material/Link";
-import { getAvailableClasses } from "../helper/rotationHelper.js";
+import { getAvailableClasses, csvClasses } from "../helper/rotationHelper.js";
 
 export default function AdvisorRouter() {
   const [data, setData] = useState(null);
   const [tabInfo, setTabInfo] = useState({completed: []});
+  const [csvData, setCsvData] = useState(null);
 
   //Filter out courses
   useEffect(() => {
     getAvailableClasses().then((data) => setData(data));
+    csvClasses().then((data) => setCsvData(data));
   }, []);
 
   return (
@@ -19,7 +21,8 @@ export default function AdvisorRouter() {
       <Route path="/planner">
         {data ? <Planner 
           data={data} 
-          setData={setData} 
+          setData={setData}
+          csvData={csvData}
           tabInfo={tabInfo}
         /> : null}
       </Route>
@@ -31,7 +34,7 @@ export default function AdvisorRouter() {
           component={RouterLink}
           to="/planner"
         >
-          Planner
+          Course Planning
         </Link>
         <QuestionTabs 
           tabInfo={tabInfo} 

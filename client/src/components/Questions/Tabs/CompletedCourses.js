@@ -24,10 +24,10 @@ export default function CompletedCourses({ tabInfo, setTabInfo }) {
     }
   }
 
-  //This is used to see the items in the console
-  //Useful for debugging
   useEffect(() => {
-    console.log("checkedItems: ", tabInfo);
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      console.log("checkedItemsCompTab: ", tabInfo);
+    }
   }, [tabInfo]);
 
   const options = courses.map((item) => {

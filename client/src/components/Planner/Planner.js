@@ -9,10 +9,11 @@ import Box from "@mui/material/Box";
 export default function Planner({ data, setData, tabInfo }) {
   const [activeCol, setActiveCol] = useState(null);
   
-  //This is used to see the items in the console
   //Useful for debugging
   useEffect(() => {
-    console.log("checkedItemsPlanner: ", tabInfo);
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      console.log("tabInfoPlanner: ", tabInfo);
+    }
   }, [tabInfo]);
 
   const onColumnClick = (columnId) => {

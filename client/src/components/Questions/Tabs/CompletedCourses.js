@@ -6,34 +6,34 @@ import { useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
-export default function CompletedCourses(params) {
+export default function CompletedCourses({ tabInfo, setTabInfo }) {
   const handleChange = (e) => {
     if (e.target.checked) {
       //Copy to a new array and push the new item to it
       //Then add the new array to the state object and update
       //If there's a fancy way of doing this, please change it
-      let newArray = params.courseState.completed.slice();
+      let newArray = tabInfo.completed.slice();
       newArray.push(e.target.id);
-      const newCompCourses = {...params.courseState, completed: newArray};
-      params.setCourseState(newCompCourses);
+      const newCompCourses = {...tabInfo, completed: newArray};
+      setTabInfo(newCompCourses);
     } else {
-      let newArray = params.courseState.completed.slice();
+      let newArray = tabInfo.completed.slice();
       let filteredArray = newArray.filter(item => item !== e.target.id);
-      const newCompCourses = {...params.courseState, completed: filteredArray};
-      params.setCourseState(newCompCourses);
+      const newCompCourses = {...tabInfo, completed: filteredArray};
+      setTabInfo(newCompCourses);
     }
   }
 
   //This is used to see the items in the console
   //Useful for debugging
   useEffect(() => {
-    console.log("checkedItems: ", params.courseState);
-  }, [params.courseState]);
+    console.log("checkedItems: ", tabInfo);
+  }, [tabInfo]);
 
   const options = courses.map((item) => {
     let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
     let id = `${item.subject.charAt(0)}${item.courseNum}`;
-    let checked = params.courseState.completed.includes(id);
+    let checked = tabInfo.completed.includes(id);
     
     return (
       <FormControlLabel

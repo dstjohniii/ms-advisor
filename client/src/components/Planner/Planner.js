@@ -6,14 +6,14 @@ import Semester from "./Semester";
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 
-export default function Planner({ data, setData, courseState }) {
+export default function Planner({ data, setData, tabInfo }) {
   const [activeCol, setActiveCol] = useState(null);
   
   //This is used to see the items in the console
   //Useful for debugging
   useEffect(() => {
-    console.log("checkedItemsPlanner: ", courseState);
-  }, [courseState]);
+    console.log("checkedItemsPlanner: ", tabInfo);
+  }, [tabInfo]);
 
   const onColumnClick = (columnId) => {
     setActiveCol(columnId);

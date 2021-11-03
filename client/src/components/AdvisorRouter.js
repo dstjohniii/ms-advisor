@@ -7,6 +7,7 @@ import { getAvailableClasses, csvClasses } from "../helper/rotationHelper.js";
 
 export default function AdvisorRouter() {
   const [data, setData] = useState(null);
+  const [tabInfo, setTabInfo] = useState({completed: []});
   const [csvData, setCsvData] = useState(null);
 
   //Filter out courses
@@ -18,9 +19,12 @@ export default function AdvisorRouter() {
   return (
     <Switch>
       <Route path="/planner">
-        {data && csvData ? (
-          <Planner data={data} setData={setData} csvData={csvData} />
-        ) : null}
+        {data ? <Planner 
+          data={data} 
+          setData={setData}
+          csvData={csvData}
+          tabInfo={tabInfo}
+        /> : null}
       </Route>
       <Route path="/">
         <Link
@@ -32,7 +36,10 @@ export default function AdvisorRouter() {
         >
           Course Planning
         </Link>
-        <QuestionTabs />
+        <QuestionTabs 
+          tabInfo={tabInfo} 
+          setTabInfo={setTabInfo}
+        />
       </Route>
       <Route path="*">
         <Redirect to="/" />

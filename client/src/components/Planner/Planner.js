@@ -7,8 +7,16 @@ import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import { isOffered } from "../../helper/rotationHelper.js";
 
-export default function Planner({ data, setData, csvData }) {
+export default function Planner({ data, setData, tabInfo, csvData }) {
+  const [activeCol, setActiveCol] = useState(null);
   const [availableCols, setAvailableCols] = useState(null);
+  
+  //Useful for debugging
+  useEffect(() => {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      console.log("tabInfoPlanner: ", tabInfo);
+    }
+  }, [tabInfo]);
 
   const onDragStart = ({ draggableId }) => {
     if (!csvData) {

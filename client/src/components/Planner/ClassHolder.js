@@ -17,19 +17,29 @@ export default function ClassHolder({
         width: 300,
         padding: 1,
         display: "flex",
-        maxHeight: 750,
         overflowY: "scroll",
         flexDirection: "column",
+        paddingTop: 0,
       }}
     >
-      <Typography variant="h3">{column.title}</Typography>
+      <Typography
+        variant="h3"
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 2,
+          background: "white",
+          padding: 1,
+        }}
+      >
+        {column.title}
+      </Typography>
       <Droppable droppableId={column.id} isDropDisabled={isDropDisabled}>
         {(provided, snapshot) => (
           <List
             ref={provided.innerRef}
             {...provided.droppableProps}
             sx={{
-              backgroundColor: snapshot.isDraggingOver ? "skyblue" : "white",
               flexGrow: 1,
               minHeight: 100,
             }}

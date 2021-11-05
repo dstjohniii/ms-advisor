@@ -18,14 +18,26 @@ export default function ColumnType({
         width: 300,
         padding: 1,
         display: "flex",
-        overflowY: "scroll",
-        maxHeight: 240,
+        height: 240,
         flexDirection: "column",
+        overflowY: "scroll",
         border: isActive ? 3 : 0,
         borderColor: "green",
+        paddingTop: 0,
       }}
     >
-      <Typography variant="h3">{column.title}</Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 2,
+          background: "white",
+          padding: 1,
+        }}
+      >
+        {column.title}
+      </Typography>
       <Droppable droppableId={column.id} isDropDisabled={isDropDisabled}>
         {(provided, snapshot) => (
           <List
@@ -33,7 +45,6 @@ export default function ColumnType({
             {...provided.droppableProps}
             sx={{
               borderRadius: 1,
-              backgroundColor: snapshot.isDraggingOver ? "skyblue" : "white",
               flexGrow: 1,
               minHeight: 100,
             }}

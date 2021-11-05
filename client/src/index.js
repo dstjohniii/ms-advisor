@@ -26,6 +26,9 @@ const theme = createTheme({
     h3: {
       fontSize: "1.78rem",
     },
+    h4: {
+      fontSize: "1.3rem",
+    },
   },
   text: {
     primary: "white",

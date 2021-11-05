@@ -39,7 +39,7 @@ export default function App() {
             backgroundColor: (theme) => theme.palette.background.umslRed,
           }}
         >
-          <Typography variant="h1">MS Advisor</Typography>
+          <Typography variant="h1">MS Advisor TEST</Typography>
         </Paper>
         <Breadcrumbs>
           <LinkRouter

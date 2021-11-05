@@ -29,7 +29,6 @@
     "eject": "react-scripts eject",
     "predeploy": "npm install",
     "prod": "npm run build",
-    "postinstall": "node ./node_modules/husky/lib/installer/bin install",
     "deploy": "gh-pages -d build"
   },
   "husky": {

@@ -23,7 +23,7 @@ export default function App() {
   const pathnames = pathname.split("/").filter((x) => x);
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Paper
         sx={{
           marginTop: (theme) => theme.spacing(1),

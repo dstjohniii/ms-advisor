@@ -36,6 +36,21 @@ const initialData = {
       title: "Fall 2023",
       taskIds: [],
     },
+    "SP-2024": {
+      id: "SP-2024",
+      title: "Spring 2024",
+      taskIds: [],
+    },
+    "SS-2024": {
+      id: "SS-2024",
+      title: "Summer 2024",
+      taskIds: [],
+    },
+    "FS-2024": {
+      id: "FS-2024",
+      title: "Fall 2024",
+      taskIds: [],
+    },
   },
   columnOrder: [
     "SP-2022",
@@ -44,6 +59,9 @@ const initialData = {
     "SP-2023",
     "SS-2023",
     "FS-2023",
+    "SP-2024",
+    "SS-2024",
+    "FS-2024",
   ],
 };
 

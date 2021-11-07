@@ -14,6 +14,8 @@ export default function Task({ task, index }) {
             margin: (theme) => theme.spacing(1),
             boxShadow: 1,
             borderRadius: 1,
+            maxWidth: 240,
+            display: "flex",
             backgroundColor: snapshot.isDragging ? "lightgreen" : "white",
           }}
         >

@@ -8,12 +8,11 @@ import Box from "@mui/material/Box";
 import { isOffered } from "../../helper/rotationHelper.js";
 
 export default function Planner({ data, setData, tabInfo, csvData }) {
-  const [activeCol, setActiveCol] = useState(null);
   const [availableCols, setAvailableCols] = useState(null);
-  
+
   //Useful for debugging
   useEffect(() => {
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
       console.log("tabInfoPlanner: ", tabInfo);
     }
   }, [tabInfo]);
@@ -109,11 +108,14 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
       onDragStart={onDragStart}
       sx={{ display: "flex" }}
     >
-      <Container sx={{ display: "flex", maxHeight: 800 }}>
+      <Container maxWidth={false} sx={{ display: "flex" }}>
         <Paper
           sx={{
             display: "flex",
+            maxHeight: 750,
             marginRight: 10,
+            position: "sticky",
+            top: 0,
             backgroundColor: (theme) => theme.palette.grey[400],
           }}
         >

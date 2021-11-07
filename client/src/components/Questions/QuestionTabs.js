@@ -54,7 +54,7 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
           <Tab label="Instructions" {...a11yProps(0)} />
           <Tab label="Degree Paths" {...a11yProps(1)} />
           <Tab label="Restricted Courses" {...a11yProps(2)} />
@@ -73,9 +73,7 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
         <RestrictedCourses />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <CompletedCourses 
-          tabInfo={tabInfo} 
-          setTabInfo={setTabInfo}/>
+        <CompletedCourses tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </TabPanel>
       <TabPanel value={value} index={4}>
         <WaivedCourses />

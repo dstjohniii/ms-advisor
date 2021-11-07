@@ -6,8 +6,15 @@ import Link from "@mui/material/Link";
 import { getAvailableClasses, csvClasses } from "../helper/rotationHelper.js";
 
 export default function AdvisorRouter() {
+  let tabInfoInitial = {
+    degreePath: "traditional",
+    certificates: [],
+    completed: [], 
+    restricted: [], 
+    waived: []
+  }
   const [data, setData] = useState(null);
-  const [tabInfo, setTabInfo] = useState({completed: [], restricted: [], waived: []});
+  const [tabInfo, setTabInfo] = useState(tabInfoInitial);
   const [csvData, setCsvData] = useState(null);
 
   //Filter out courses

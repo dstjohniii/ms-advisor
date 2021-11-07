@@ -2,12 +2,40 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
+import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
+import { useEffect } from "react";
 
-export default function DegreePath() {
+export default function DegreePath({ tabInfo, setTabInfo }) {
+  const handleChangeCert = (e) => {
+    if (e.target.checked) {
+      let newArray = tabInfo.certificates.slice();
+      newArray.push(e.target.value);
+      const newTabInfo = {...tabInfo, certificates: newArray};
+      setTabInfo(newTabInfo);
+    } else {
+      let newArray = tabInfo.certificates.slice();
+      let filteredArray = newArray.filter(item => item !== e.target.value);
+      const newTabInfo = {...tabInfo, certificates: filteredArray};
+      setTabInfo(newTabInfo);
+    }
+  }
+
+  const handleChangeDeg = (e) => {
+    const newTabInfo = {...tabInfo, degreePath: e.target.value};
+    setTabInfo(newTabInfo);
+  }
+
+  useEffect(() => {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      console.log("checkedItemsDegPath: ", tabInfo);
+    }
+  }, [tabInfo]);
+
   return (
     <Container
       sx={{
@@ -23,51 +51,53 @@ export default function DegreePath() {
         <RadioGroup defaultValue="traditional" name="type-path-group">
           <FormControlLabel
             value="traditional"
-            control={<Radio />}
+            checked={tabInfo.degreePath === "traditional"}
+            control={<Radio onChange={handleChangeDeg}/>}
             label="Traditional"
           />
           <FormControlLabel
             value="professional"
-            control={<Radio />}
+            checked={tabInfo.degreePath === "professional"}
+            control={<Radio onChange={handleChangeDeg}/>}
             label="Professional"
           />
           <FormControlLabel
             value="certificate"
-            control={<Radio />}
+            checked={tabInfo.degreePath === "certificate"}
+            control={<Radio onChange={handleChangeDeg}/>}
             label="Certificate"
           />
         </RadioGroup>
 
         <FormLabel component="legend">Certificate Options:</FormLabel>
 
-        <RadioGroup defaultValue="none" name="type-certificate-group">
+        <FormGroup>
           <FormControlLabel
             value="artificial-intelligence"
-            control={<Radio />}
+            control={<Checkbox onChange={handleChangeCert}/>}
             label="Artificial Intelligence"
           />
           <FormControlLabel
             value="cybersecurity"
-            control={<Radio />}
+            control={<Checkbox onChange={handleChangeCert}/>}
             label="Cybersecurity"
           />
           <FormControlLabel
             value="data-science"
-            control={<Radio />}
+            control={<Checkbox onChange={handleChangeCert}/>}
             label="Data Science"
           />
           <FormControlLabel
             value="internet-and-web"
-            control={<Radio />}
+            control={<Checkbox onChange={handleChangeCert}/>}
             label="Internet and Web"
           />
           <FormControlLabel
             value="mobile-apps-and-computing"
-            control={<Radio />}
+            control={<Checkbox onChange={handleChangeCert}/>}
             label="Mobile Apps and Computing"
           />
-          <FormControlLabel value="none" control={<Radio />} label="None" />
-        </RadioGroup>
+        </FormGroup>
       </FormControl>
       <br></br>
       <br></br>

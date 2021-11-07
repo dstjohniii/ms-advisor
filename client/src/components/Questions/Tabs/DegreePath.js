@@ -9,6 +9,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import { useEffect } from "react";
+import certificates from "../../../data/Certificates.json";
 
 export default function DegreePath({ tabInfo, setTabInfo }) {
   const handleChangeCert = (e) => {
@@ -72,31 +73,23 @@ export default function DegreePath({ tabInfo, setTabInfo }) {
         <FormLabel component="legend">Certificate Options:</FormLabel>
 
         <FormGroup>
-          <FormControlLabel
-            value="artificial-intelligence"
-            control={<Checkbox onChange={handleChangeCert}/>}
-            label="Artificial Intelligence"
-          />
-          <FormControlLabel
-            value="cybersecurity"
-            control={<Checkbox onChange={handleChangeCert}/>}
-            label="Cybersecurity"
-          />
-          <FormControlLabel
-            value="data-science"
-            control={<Checkbox onChange={handleChangeCert}/>}
-            label="Data Science"
-          />
-          <FormControlLabel
-            value="internet-and-web"
-            control={<Checkbox onChange={handleChangeCert}/>}
-            label="Internet and Web"
-          />
-          <FormControlLabel
-            value="mobile-apps-and-computing"
-            control={<Checkbox onChange={handleChangeCert}/>}
-            label="Mobile Apps and Computing"
-          />
+          {certificates.map((item) => {
+            let checked = tabInfo.certificates.includes(item.value);
+
+            return (
+              <FormControlLabel
+                key={item.value}
+                component={'span'}
+                label={item.label}
+                control={
+                  <Checkbox
+                    checked={checked}
+                    value={item.value}
+                    onChange={handleChangeCert}
+                  />}
+              />
+            );
+          })}
         </FormGroup>
       </FormControl>
       <br></br>

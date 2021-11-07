@@ -7,7 +7,7 @@ import { getAvailableClasses, csvClasses } from "../helper/rotationHelper.js";
 
 export default function AdvisorRouter() {
   const [data, setData] = useState(null);
-  const [tabInfo, setTabInfo] = useState({completed: []});
+  const [tabInfo, setTabInfo] = useState({completed: [], restricted: []});
   const [csvData, setCsvData] = useState(null);
 
   //Filter out courses

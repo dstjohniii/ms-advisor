@@ -5,19 +5,38 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
-const restCourses = courses.filter((v) => v.restricted);
-const courseLabels = restCourses.map(
-  (a) => `${a.subject} ${a.courseNum} - ${a.courseName}`
-);
+export default function RestrictedCourses({ tabInfo, setTabInfo }) {
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      let newArray = tabInfo.restricted.slice();
+      newArray.push(e.target.id);
+      const newTabInfo = {...tabInfo, restricted: newArray};
+      setTabInfo(newTabInfo);
+    } else {
+      let newArray = tabInfo.restricted.slice();
+      let filteredArray = newArray.filter(item => item !== e.target.id);
+      const newTabInfo = {...tabInfo, restricted: filteredArray};
+      setTabInfo(newTabInfo);
+    }
+  }
 
-export default function RestrictedCourses() {
-  const options = courseLabels.map((item) => {
+  const options = courses.filter((v) => v.restricted).map((item) => {
+    let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
+    let id = `${item.subject.charAt(0)}${item.courseNum}`;
+    let checked = tabInfo.restricted.includes(id);
+
     return (
       <FormControlLabel
         key={item}
         value={item}
-        control={<Checkbox />}
-        label={item}
+        control={
+          <Checkbox 
+            id={id} 
+            checked={checked} 
+            value={item} 
+            onChange={handleChange}
+          />}
+        label={label}
       />
     );
   });

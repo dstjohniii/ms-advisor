@@ -70,7 +70,9 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
         <DegreePath />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <RestrictedCourses />
+        <RestrictedCourses 
+          tabInfo={tabInfo} 
+          setTabInfo={setTabInfo}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
         <CompletedCourses 

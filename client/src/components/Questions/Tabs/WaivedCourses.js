@@ -6,26 +6,42 @@ import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
 
 
-let restCourses = courses.filter((restCourses)=>restCourses.core)
-
-let courseLabels = restCourses.map(
-  a => a.subject + " " + a.courseNum + " - " + a.courseName
-  );
-
-export default function RestrictedCourses() {
+export default function WaivedCourses({ tabInfo, setTabInfo }) {
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      let newArray = tabInfo.waived.slice();
+      newArray.push(e.target.id);
+      const newTabInfo = {...tabInfo, waived: newArray};
+      setTabInfo(newTabInfo);
+    } else {
+      let newArray = tabInfo.waived.slice();
+      let filteredArray = newArray.filter(item => item !== e.target.id);
+      const newTabInfo = {...tabInfo, waived: filteredArray};
+      setTabInfo(newTabInfo);
+    }
+  }
    
-  const options = courseLabels.map((item) => {
+  const options = courses.filter((v) => v.core).map((item) => {
+    let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
+    let id = `${item.subject.charAt(0)}${item.courseNum}`;
+    let checked = tabInfo.waived.includes(id);
+
     return (
-      
-      <FormControlLabel 
-      key={item} 
-      value={item} 
-      control={<Checkbox/>} 
-      label={item}
+      <FormControlLabel
+        key={id}
+        //To supress warnings about <div> cannot appear as a descendant of <p>.
+        component={'span'}
+        label={label}
+        control={
+          <Checkbox 
+            id={id} 
+            checked={checked} 
+            value={item} 
+            onChange={handleChange}
+          />}
       />
-      )
-    
-    });
+    );
+  });
 
   return (
     <Container

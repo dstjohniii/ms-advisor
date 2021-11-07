@@ -67,16 +67,22 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
         <Instructions />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <DegreePath />
+        <DegreePath 
+          tabInfo={tabInfo} 
+          setTabInfo={setTabInfo}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <RestrictedCourses />
+        <RestrictedCourses 
+          tabInfo={tabInfo} 
+          setTabInfo={setTabInfo}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
         <CompletedCourses tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <WaivedCourses />
+        <WaivedCourses 
+          tabInfo={tabInfo} 
+          setTabInfo={setTabInfo}/>
       </TabPanel>
       <TabPanel value={value} index={5}>
         <Required6000Courses />

@@ -1,0 +1,22 @@
+[
+    {
+        "value": "articial-intelligence",
+        "label": "Artificial Intelligence"
+    },
+    {
+        "value": "cybersecurity",
+        "label": "Cybersecurity"
+    },
+    {
+        "value": "data-science",
+        "label": "Data Science"
+    },
+    {
+        "value": "internet-and-web",
+        "label": "Internet and Web"
+    },
+    {
+        "value": "mobile-apps-and-computing",
+        "label": "Mobile Apps and Computing"
+    }
+]

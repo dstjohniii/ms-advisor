@@ -27,8 +27,10 @@ export default function RestrictedCourses({ tabInfo, setTabInfo }) {
 
     return (
       <FormControlLabel
-        key={item}
-        value={item}
+        key={id}
+        //To supress warnings about <div> cannot appear as a descendant of <p>.
+        component={'span'}
+        label={label}
         control={
           <Checkbox 
             id={id} 
@@ -36,7 +38,6 @@ export default function RestrictedCourses({ tabInfo, setTabInfo }) {
             value={item} 
             onChange={handleChange}
           />}
-        label={label}
       />
     );
   });

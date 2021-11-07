@@ -80,7 +80,9 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
           setTabInfo={setTabInfo}/>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <WaivedCourses />
+        <WaivedCourses 
+          tabInfo={tabInfo} 
+          setTabInfo={setTabInfo}/>
       </TabPanel>
       <TabPanel value={value} index={5}>
         <Required6000Courses />

@@ -6,6 +6,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import FormHelperText from "@mui/material/FormLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import { useEffect } from "react";
@@ -37,6 +38,8 @@ export default function DegreePath({ tabInfo, setTabInfo }) {
     }
   }, [tabInfo]);
 
+  const error = tabInfo.degreePath === "certificate" && tabInfo.certificates.length < 1;
+
   return (
     <Container
       sx={{
@@ -47,7 +50,6 @@ export default function DegreePath({ tabInfo, setTabInfo }) {
     >
       <Typography variant="h2">Degree paths</Typography>
       <Typography>Please select your desired degree path.</Typography>
-      <FormControl component="fieldset">
         <FormLabel component="legend">Degree Path:</FormLabel>
         <RadioGroup defaultValue="traditional" name="type-path-group">
           <FormControlLabel
@@ -69,7 +71,12 @@ export default function DegreePath({ tabInfo, setTabInfo }) {
             label="Certificate"
           />
         </RadioGroup>
-
+      <FormControl
+        required={tabInfo.degreePath === "certificate"}
+        error={error}
+        component="fieldset"
+        variant="standard"
+      >
         <FormLabel component="legend">Certificate Options:</FormLabel>
 
         <FormGroup>
@@ -91,6 +98,9 @@ export default function DegreePath({ tabInfo, setTabInfo }) {
             );
           })}
         </FormGroup>
+        {error &&
+        <FormHelperText>Please select at least one certificate</FormHelperText>
+        }
       </FormControl>
       <br></br>
       <br></br>

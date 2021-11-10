@@ -60,7 +60,7 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
           <Tab label="Restricted Courses" {...a11yProps(2)} />
           <Tab label="Completed Courses" {...a11yProps(3)} />
           <Tab label="Waived Courses" {...a11yProps(4)} />
-          <Tab label="6000 Level Required Courses" {...a11yProps(5)} />
+          {/* <Tab label="6000 Level Required Courses" {...a11yProps(5)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -84,9 +84,9 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
           tabInfo={tabInfo} 
           setTabInfo={setTabInfo}/>
       </TabPanel>
-      <TabPanel value={value} index={5}>
+      {/* <TabPanel value={value} index={5}>
         <Required6000Courses />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 }

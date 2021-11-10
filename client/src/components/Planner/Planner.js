@@ -17,6 +17,24 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
     }
   }, [tabInfo]);
 
+  // filter out completed / waived courses
+  useEffect(() => {
+    let newData = { ...data };
+    newData.columns["available-classes"].taskIds = Object.keys(
+      newData.classes
+    ).reverse();
+    Object.entries(newData.columns).forEach(
+      (c) =>
+        (c[1].taskIds = c[1].taskIds.filter(
+          (t) =>
+            !tabInfo?.restricted.map((r) => (r = r.substring(1))).includes(t) &&
+            !tabInfo?.completed.map((r) => (r = r.substring(1))).includes(t) &&
+            !tabInfo?.waived.map((r) => (r = r.substring(1))).includes(t)
+        ))
+    );
+    setData(newData);
+  }, [tabInfo]);
+
   const onDragStart = ({ draggableId }) => {
     if (!csvData) {
       return;
@@ -56,7 +74,7 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
 
       const newColumn = {
         ...start,
-        taskIds: newTaskIds,
+        taskIds: newTaskIds.sort().reverse(),
       };
 
       const newData = {
@@ -81,7 +99,7 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
     finishTaskIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      taskIds: finishTaskIds,
+      taskIds: finishTaskIds.sort().reverse(),
     };
 
     const newData = {

@@ -20,9 +20,20 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
   // filter out completed / waived courses
   useEffect(() => {
     let newData = { ...data };
-    newData.columns["available-classes"].taskIds = Object.keys(
-      newData.classes
-    ).reverse();
+    console.log(`newData`, newData);
+    newData.columns["available-classes"].taskIds = Object.keys(newData.classes)
+      .filter((a) => {
+        let response = true;
+        Object.entries(newData.columns).forEach((c) => {
+          if (c[1].id !== "available-classes" && c[1].taskIds.includes(a)) {
+            response = false;
+            return;
+          }
+        });
+        return response;
+      })
+      .reverse();
+
     Object.entries(newData.columns).forEach(
       (c) =>
         (c[1].taskIds = c[1].taskIds.filter(

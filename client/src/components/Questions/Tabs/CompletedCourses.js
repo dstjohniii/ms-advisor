@@ -14,43 +14,46 @@ export default function CompletedCourses({ tabInfo, setTabInfo }) {
       //If there's a fancy way of doing this, please change it
       let newArray = tabInfo.completed.slice();
       newArray.push(e.target.id);
-      const newCompCourses = {...tabInfo, completed: newArray};
+      const newCompCourses = { ...tabInfo, completed: newArray };
       setTabInfo(newCompCourses);
     } else {
       let newArray = tabInfo.completed.slice();
-      let filteredArray = newArray.filter(item => item !== e.target.id);
-      const newCompCourses = {...tabInfo, completed: filteredArray};
+      let filteredArray = newArray.filter((item) => item !== e.target.id);
+      const newCompCourses = { ...tabInfo, completed: filteredArray };
       setTabInfo(newCompCourses);
     }
-  }
+  };
 
   useEffect(() => {
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
       console.log("checkedItemsCompTab: ", tabInfo);
     }
   }, [tabInfo]);
 
-  const options = courses.map((item) => {
-    let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
-    let id = `${item.subject.charAt(0)}${item.courseNum}`;
-    let checked = tabInfo.completed.includes(id);
-    
-    return (
-      <FormControlLabel
-        key={id}
-        //To supress warnings about <div> cannot appear as a descendant of <p>.
-        component={'span'}
-        label={label}
-        control={
-          <Checkbox 
-            id={id} 
-            checked={checked} 
-            value={item} 
-            onChange={handleChange}
-          />}
-      />
-    );
-  });
+  const options = courses
+    .filter((v) => !v.restricted)
+    .map((item) => {
+      let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
+      let id = `${item.subject.charAt(0)}${item.courseNum}`;
+      let checked = tabInfo.completed.includes(id);
+
+      return (
+        <FormControlLabel
+          key={id}
+          //To supress warnings about <div> cannot appear as a descendant of <p>.
+          component={"span"}
+          label={label}
+          control={
+            <Checkbox
+              id={id}
+              checked={checked}
+              value={item}
+              onChange={handleChange}
+            />
+          }
+        />
+      );
+    });
 
   return (
     <Container

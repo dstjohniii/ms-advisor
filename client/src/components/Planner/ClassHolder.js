@@ -16,9 +16,7 @@ export default function ClassHolder({
         margin: (theme) => theme.spacing(1),
         width: 300,
         padding: 1,
-        display: "flex",
         overflowY: "scroll",
-        flexDirection: "column",
         paddingTop: 0,
       }}
     >
@@ -28,6 +26,8 @@ export default function ClassHolder({
           position: "sticky",
           top: 0,
           zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
           background: "white",
           padding: 1,
         }}

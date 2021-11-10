@@ -85,9 +85,7 @@ export function isOffered(classId, semesterId, classes) {
         offeredSemesters.forEach((s) => {
           if (semesterId.startsWith(s)) {
             if (c["even or odd"]) {
-              console.log(`c["even or odd"]`, c["even or odd"]);
               const year = semesterId.split("-")[1];
-              console.log(`year`, year);
               if (isEven(year) && c["even or odd"] === "even") {
                 response = true;
               }

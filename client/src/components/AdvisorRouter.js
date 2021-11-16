@@ -9,10 +9,11 @@ export default function AdvisorRouter() {
   let tabInfoInitial = {
     degreePath: "traditional",
     certificates: [],
-    completed: [], 
-    restricted: [], 
-    waived: []
-  }
+    completed: [],
+    restricted: [],
+    waived: [],
+    transfer: 0,
+  };
   const [data, setData] = useState(null);
   const [tabInfo, setTabInfo] = useState(tabInfoInitial);
   const [csvData, setCsvData] = useState(null);
@@ -26,12 +27,14 @@ export default function AdvisorRouter() {
   return (
     <Switch>
       <Route path="/planner">
-        {data ? <Planner 
-          data={data} 
-          setData={setData}
-          csvData={csvData}
-          tabInfo={tabInfo}
-        /> : null}
+        {data ? (
+          <Planner
+            data={data}
+            setData={setData}
+            csvData={csvData}
+            tabInfo={tabInfo}
+          />
+        ) : null}
       </Route>
       <Route path="/">
         <Link
@@ -43,10 +46,7 @@ export default function AdvisorRouter() {
         >
           Course Planning
         </Link>
-        <QuestionTabs 
-          tabInfo={tabInfo} 
-          setTabInfo={setTabInfo}
-        />
+        <QuestionTabs tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </Route>
       <Route path="*">
         <Redirect to="/" />

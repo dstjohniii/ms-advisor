@@ -6,6 +6,7 @@ import Semester from "./Semester";
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import { isOffered } from "../../helper/rotationHelper.js";
+import Checklist from "./Checklist";
 
 export default function Planner({ data, setData, tabInfo, csvData }) {
   const [availableCols, setAvailableCols] = useState(null);
@@ -190,6 +191,18 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
             );
           })}
         </Paper>
+        <Paper
+          sx={{
+            display: "flex",
+            maxHeight: 750,
+            marginLeft: 10,
+            position: "sticky",
+            top: 0,
+            backgroundColor: (theme) => theme.palette.grey[400],
+          }}
+        >
+          <Checklist> </Checklist>
+      </Paper>
       </Container>
     </DragDropContext>
   );

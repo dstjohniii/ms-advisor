@@ -2,4 +2,4 @@ This package should hold all the static data that we retrieve from different sit
 
 ## Future
 
-This will hopefully get replaced with an api call to a back end service to fetch data from a database so we can have dynamic data.
+This will hopefully get replaced with an api call to a back end service to fetch data from a database so we can have dynamic data..

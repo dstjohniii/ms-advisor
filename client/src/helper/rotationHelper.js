@@ -125,7 +125,14 @@ export function get6000Prereqs() {
 /* given a course number, returns an array of class numbers that are pre
  * requisites to the given course number.
  */
-export function getPrereqs(courseNum) {}
+export function getPrereqs(courseId) {
+  const a = [];
+  courses
+    .filter((c) => String(c.courseNum) === String(courseId))
+    .map((c) => c.prerequisites)
+    .forEach((c) => c.forEach((b) => b.courseNum && a.push("" + b.courseNum)));
+  return _union(a);
+}
 
 /*
  * semester comes in as semester-year

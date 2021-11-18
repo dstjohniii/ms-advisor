@@ -1,22 +1,22 @@
 [
-    {
-        "value": "articial-intelligence",
-        "label": "Artificial Intelligence"
-    },
-    {
-        "value": "cybersecurity",
-        "label": "Cybersecurity"
-    },
-    {
-        "value": "data-science",
-        "label": "Data Science"
-    },
-    {
-        "value": "internet-and-web",
-        "label": "Internet and Web"
-    },
-    {
-        "value": "mobile-apps-and-computing",
-        "label": "Mobile Apps and Computing"
-    }
+  {
+    "value": "GCAI",
+    "label": "Artificial Intelligence"
+  },
+  {
+    "value": "GCCB",
+    "label": "Cybersecurity"
+  },
+  {
+    "value": "GCDS",
+    "label": "Data Science"
+  },
+  {
+    "value": "GCIW",
+    "label": "Internet and Web"
+  },
+  {
+    "value": "GCMA",
+    "label": "Mobile Apps and Computing"
+  }
 ]

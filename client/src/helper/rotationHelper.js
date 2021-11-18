@@ -111,6 +111,22 @@ export function getElectiveCourses(programId, csvData) {
     : csvData.filter((c) => c[programId] === "L").map((c) => c.Number);
 }
 
+/* returns an array of class numbers strings that are prerequisites to the 6000 level courses
+ */
+export function get6000Prereqs() {
+  const a = [];
+  courses
+    .filter((c) => String(c.courseNum).startsWith("6"))
+    .map((c) => c.prerequisites)
+    .forEach((c) => c.forEach((b) => b.courseNum && a.push("" + b.courseNum)));
+  return _union(a);
+}
+
+/* given a course number, returns an array of class numbers that are pre
+ * requisites to the given course number.
+ */
+export function getPrereqs(courseNum) {}
+
 /*
  * semester comes in as semester-year
  * FS = fall

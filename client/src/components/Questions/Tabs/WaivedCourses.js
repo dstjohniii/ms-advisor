@@ -4,7 +4,10 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import courses from "../../../data/ClassInfo.json";
-import { getRequiredCourses } from "../../../helper/rotationHelper";
+import {
+  getRequiredCourses,
+  get6000Prereqs,
+} from "../../../helper/rotationHelper";
 import _union from "lodash/union";
 
 export default function WaivedCourses({ tabInfo, setTabInfo, csvData }) {
@@ -27,6 +30,10 @@ export default function WaivedCourses({ tabInfo, setTabInfo, csvData }) {
   tabInfo.certificates.forEach(
     (c) => (reqCourses = _union(reqCourses, getRequiredCourses(c, csvData)))
   );
+
+  // get all 6000 prereqs
+  reqCourses = _union(reqCourses, get6000Prereqs());
+  console.log(`reqCourses`, reqCourses);
 
   // filter the courses to what to display
   const options = courses

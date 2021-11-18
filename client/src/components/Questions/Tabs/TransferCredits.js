@@ -5,6 +5,8 @@ import TextField from "@mui/material/TextField";
 export default function TransferCredits({ tabInfo, setTabInfo }) {
   const handleChange = (e) => {
     if (Number(e.target.value) < 0 || !e.target.value) e.target.value = 0;
+    if (e.target.value.startsWith("0"))
+      e.target.value = e.target.value.substring(1);
     setTabInfo({ ...tabInfo, transfer: Number(e.target.value) });
   };
 
@@ -30,7 +32,7 @@ export default function TransferCredits({ tabInfo, setTabInfo }) {
         id="transfer-credits"
         label="# of Transfer Credits"
         type="number"
-        defaultValue="0"
+        value={tabInfo.transfer}
         InputLabelProps={{
           shrink: true,
         }}

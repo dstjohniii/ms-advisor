@@ -46,7 +46,11 @@ export default function AdvisorRouter() {
         >
           Course Planning
         </Link>
-        <QuestionTabs tabInfo={tabInfo} setTabInfo={setTabInfo} />
+        <QuestionTabs
+          tabInfo={tabInfo}
+          setTabInfo={setTabInfo}
+          csvData={csvData}
+        />
       </Route>
       <Route path="*">
         <Redirect to="/" />

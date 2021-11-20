@@ -68,6 +68,73 @@ export async function getAvailableClasses() {
 }
 
 /*
+ * Given a program id, returns an array of required course ids. Excluding 6000.
+ * programIds
+ * MSCS = MS in CS
+ * Traditional = traditional path in CS extra requirements
+ * MSCB = Masters in Cybersecurity
+ * GCAI = certificate in AI
+ * GCCB = certificate in Cybersecurity
+ * GCDS = certificate in Data science
+ * GCIW = Certificate Internet/Web
+ * GCMA = Certificate Mobile Apps
+ */
+export function getRequiredCourses(programId, csvData) {
+  let compare = "R";
+  if (programId === "traditional") {
+    compare = "R*";
+    programId = "MSCS";
+  }
+
+  return !csvData
+    ? null
+    : csvData
+        .filter((c) => c[programId] === compare)
+        .filter((c) => !c.Number.startsWith("6"))
+        .map((c) => c.Number);
+}
+
+/*
+ * Given a program id, returns an array of elective course ids.
+ * programIds
+ * MSCS = MS in CS
+ * MSCB = Masters in Cybersecurity
+ * GCAI = certificate in AI
+ * GCCB = certificate in Cybersecurity
+ * GCDS = certificate in Data science
+ * GCIW = Certificate Internet/Web
+ * GCMA = Certificate Mobile Apps
+ */
+export function getElectiveCourses(programId, csvData) {
+  return !csvData
+    ? null
+    : csvData.filter((c) => c[programId] === "L").map((c) => c.Number);
+}
+
+/* returns an array of class numbers strings that are prerequisites to the 6000 level courses
+ */
+export function get6000Prereqs() {
+  const a = [];
+  courses
+    .filter((c) => String(c.courseNum).startsWith("6"))
+    .map((c) => c.prerequisites)
+    .forEach((c) => c.forEach((b) => b.courseNum && a.push("" + b.courseNum)));
+  return _union(a);
+}
+
+/* given a course number, returns an array of class numbers that are pre
+ * requisites to the given course number.
+ */
+export function getPrereqs(courseId) {
+  const a = [];
+  courses
+    .filter((c) => String(c.courseNum) === String(courseId))
+    .map((c) => c.prerequisites)
+    .forEach((c) => c.forEach((b) => b.courseNum && a.push("" + b.courseNum)));
+  return _union(a);
+}
+
+/*
  * semester comes in as semester-year
  * FS = fall
  * SS = summer

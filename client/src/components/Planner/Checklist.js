@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
-export default function Checklist() {
+export default function Checklist({ tabInfo }) {
   return (
     <Paper
       sx={{
@@ -12,7 +12,23 @@ export default function Checklist() {
         paddingTop: 0,
       }}
     >
-    <Typography> Hello! </Typography>
+      <Typography
+        variant="h3"
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          background: "white",
+          padding: 1,
+        }}
+      > 
+      Degree Checklist
+      </Typography>
+			<Typography>
+				Total completed courses: {tabInfo.completed.length * 3} / 30
+			</Typography>
     </Paper>
   );
 }

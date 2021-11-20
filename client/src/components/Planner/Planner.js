@@ -201,7 +201,10 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
             backgroundColor: (theme) => theme.palette.grey[400],
           }}
         >
-          <Checklist> </Checklist>
+          <Checklist 
+            tabInfo={tabInfo}
+          >
+          </Checklist>
       </Paper>
       </Container>
     </DragDropContext>

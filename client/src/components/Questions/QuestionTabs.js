@@ -10,6 +10,7 @@ import DegreePath from "./Tabs/DegreePath";
 import CompletedCourses from "./Tabs/CompletedCourses";
 import WaivedCourses from "./Tabs/WaivedCourses";
 import Required6000Courses from "./Tabs/Required6000Courses";
+import TransferCredits from "./Tabs/TransferCredits";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,12 +55,18 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          variant="scrollable"
+          scrollButtons="auto"
+        >
           <Tab label="Instructions" {...a11yProps(0)} />
           <Tab label="Degree Paths" {...a11yProps(1)} />
           <Tab label="Restricted Courses" {...a11yProps(2)} />
           <Tab label="Completed Courses" {...a11yProps(3)} />
           <Tab label="Waived Courses" {...a11yProps(4)} />
+          <Tab label="Transfer Credits" {...a11yProps(5)} />
           {/* <Tab label="6000 Level Required Courses" {...a11yProps(5)} /> */}
         </Tabs>
       </Box>
@@ -67,22 +74,19 @@ export default function QuestionTabs({ tabInfo, setTabInfo }) {
         <Instructions />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <DegreePath 
-          tabInfo={tabInfo} 
-          setTabInfo={setTabInfo}/>
+        <DegreePath tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <RestrictedCourses 
-          tabInfo={tabInfo} 
-          setTabInfo={setTabInfo}/>
+        <RestrictedCourses tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <CompletedCourses tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <WaivedCourses 
-          tabInfo={tabInfo} 
-          setTabInfo={setTabInfo}/>
+        <WaivedCourses tabInfo={tabInfo} setTabInfo={setTabInfo} />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <TransferCredits tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </TabPanel>
       {/* <TabPanel value={value} index={5}>
         <Required6000Courses />

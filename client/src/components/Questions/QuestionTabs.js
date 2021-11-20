@@ -10,6 +10,7 @@ import DegreePath from "./Tabs/DegreePath";
 import CompletedCourses from "./Tabs/CompletedCourses";
 import WaivedCourses from "./Tabs/WaivedCourses";
 import Required6000Courses from "./Tabs/Required6000Courses";
+import TransferCredits from "./Tabs/TransferCredits";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,6 +66,7 @@ export default function QuestionTabs({ tabInfo, setTabInfo, csvData }) {
           <Tab label="Restricted Courses" {...a11yProps(2)} />
           <Tab label="Completed Courses" {...a11yProps(3)} />
           <Tab label="Waived Courses" {...a11yProps(4)} />
+          <Tab label="Transfer Credits" {...a11yProps(5)} />
           {/* <Tab label="6000 Level Required Courses" {...a11yProps(5)} /> */}
         </Tabs>
       </Box>
@@ -86,6 +88,9 @@ export default function QuestionTabs({ tabInfo, setTabInfo, csvData }) {
           setTabInfo={setTabInfo}
           csvData={csvData}
         />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <TransferCredits tabInfo={tabInfo} setTabInfo={setTabInfo} />
       </TabPanel>
       {/* <TabPanel value={value} index={5}>
         <Required6000Courses />

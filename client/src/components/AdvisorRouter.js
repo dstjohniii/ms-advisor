@@ -12,6 +12,7 @@ export default function AdvisorRouter() {
     completed: [],
     restricted: [],
     waived: [],
+    transfer: 0,
   };
   const [data, setData] = useState(null);
   const [tabInfo, setTabInfo] = useState(tabInfoInitial);

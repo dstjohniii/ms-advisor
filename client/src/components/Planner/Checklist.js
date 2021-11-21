@@ -31,12 +31,19 @@ export default function Checklist({ tabInfo }) {
 				Total completed courses: {tabInfo.completed.length * 3} / 30
 			</Typography>
       <hr/>
-      <List>
-        <ListSubheader> Restricted courses: </ListSubheader>
-          <ListItem>
-            <ListItemText inset primary="Cmp Sci 1250"/>
-          </ListItem>
-      </List>
+      {tabInfo.restricted.length > 0 && 
+        <List sx={{py: 0}}>
+          <ListSubheader> Restricted Courses: </ListSubheader>
+            {tabInfo.restricted.sort().map((a) => {
+              let primary = `Comp Sci ${a.substring(1)}`;
+              return(
+                <ListItem sx={{py: 0}}>
+                  <ListItemText sx={{py: 0, px: 2}} primary={primary}/> 
+                </ListItem>
+              );
+            })}
+        </List>
+      }
     </Paper>
   );
 }

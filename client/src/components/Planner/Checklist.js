@@ -1,5 +1,6 @@
-import { Typography } from "@mui/material";
+import { ListItem, ListItemText, ListSubheader, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import List from "@mui/material/List"
 
 export default function Checklist({ tabInfo }) {
   return (
@@ -26,9 +27,16 @@ export default function Checklist({ tabInfo }) {
       > 
       Degree Checklist
       </Typography>
-			<Typography>
+			<Typography sx={{padding: 1}}>
 				Total completed courses: {tabInfo.completed.length * 3} / 30
 			</Typography>
+      <hr/>
+      <List>
+        <ListSubheader> Restricted courses: </ListSubheader>
+          <ListItem>
+            <ListItemText inset primary="Cmp Sci 1250"/>
+          </ListItem>
+      </List>
     </Paper>
   );
 }

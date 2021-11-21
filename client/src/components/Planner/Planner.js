@@ -10,6 +10,7 @@ import Checklist from "./Checklist";
 
 export default function Planner({ data, setData, tabInfo, csvData }) {
   const [availableCols, setAvailableCols] = useState(null);
+  const [plannedCourses, setPlannedCourses] = useState([]);
 
   //Useful for debugging
   useEffect(() => {
@@ -17,6 +18,26 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
       console.log("tabInfoPlanner: ", tabInfo);
     }
   }, [tabInfo]);
+
+  useEffect(() => {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+      console.log("dataEffect: ", data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+      console.log("plannedCourses: ", plannedCourses);
+    }
+  }, [plannedCourses]);
+
+  // save planned courses when placing courses
+  useEffect(() => {
+    let columns = Object.assign({}, data.columns, {'available-classes': null});
+    let columnsArray = Object.values(columns);
+    let tempArray = [].concat(...columnsArray.filter((v) => v).map((a) => a.taskIds || []));
+    setPlannedCourses(tempArray);
+  }, [data]);
 
   // filter out completed / waived courses
   useEffect(() => {

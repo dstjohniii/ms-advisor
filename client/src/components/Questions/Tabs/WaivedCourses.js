@@ -40,7 +40,7 @@ export default function WaivedCourses({ tabInfo, setTabInfo, csvData }) {
     .filter((v) => v.core || reqCourses.includes("" + v.courseNum))
     .map((item) => {
       let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
-      let id = `${item.subject.charAt(0)}${item.courseNum}`;
+      let id = `${item.courseNum}`;
       let checked = tabInfo.waived.includes(id);
 
       return (

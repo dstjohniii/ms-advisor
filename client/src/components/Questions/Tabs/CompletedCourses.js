@@ -34,7 +34,7 @@ export default function CompletedCourses({ tabInfo, setTabInfo }) {
     .filter((v) => !v.restricted)
     .map((item) => {
       let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
-      let id = `${item.subject.charAt(0)}${item.courseNum}`;
+      let id = `${item.courseNum}`;
       let checked = tabInfo.completed.includes(id);
 
       return (

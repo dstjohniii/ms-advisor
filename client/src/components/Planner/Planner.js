@@ -11,6 +11,8 @@ import Checklist from "./Checklist";
 export default function Planner({ data, setData, tabInfo, csvData }) {
   const [availableCols, setAvailableCols] = useState(null);
   const [plannedCourses, setPlannedCourses] = useState([]);
+  
+  console.log("csvDataPlanner: ", csvData);
 
   //Useful for debugging
   useEffect(() => {
@@ -224,6 +226,8 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
         >
           <Checklist 
             tabInfo={tabInfo}
+            plannedCourses={plannedCourses}
+            csvData={csvData}
           >
           </Checklist>
       </Paper>

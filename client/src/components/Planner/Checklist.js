@@ -4,6 +4,7 @@ import List from "@mui/material/List"
 import { getRequiredCourses } from "../../helper/rotationHelper";
 import DisplayList from "./DisplayList";
 import _union from "lodash/union";
+import certificateData from "../../data/Certificates.json"
 
 export default function Checklist({ tabInfo, plannedCourses, csvData }) {
   let allCore = ["4250", "5130", "5500"];
@@ -50,6 +51,20 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         subheader={"Core"}
         displayArray={coreCourses}
       />
+      {tabInfo.certificates.map((c) => {
+        let reqCourses = getRequiredCourses(c, csvData);
+        let certTitle = certificateData
+          .filter((a) => a.value === c)
+          .map((a) => a.label)[0];
+        return (
+          <DisplayList
+            tabInfo={tabInfo}
+            plannedCourses={plannedCourses}
+            subheader={`${certTitle} Certificate`}
+            displayArray={reqCourses}
+          />
+        );}
+      )}
     </Paper>
   );
 }

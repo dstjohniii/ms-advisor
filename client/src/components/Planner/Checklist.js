@@ -1,9 +1,10 @@
 import { ListItem, ListItemText, ListSubheader, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List"
-import { getRequiredCourses } from "../../helper/rotationHelper";
+import { getElectiveCourses, getRequiredCourses } from "../../helper/rotationHelper";
 import DisplayList from "./DisplayList";
 import _union from "lodash/union";
+import _intersection from "lodash/intersection"
 import certificateData from "../../data/Certificates.json"
 
 export default function Checklist({ tabInfo, plannedCourses, csvData }) {
@@ -52,16 +53,21 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         displayArray={coreCourses}
       />
       {tabInfo.certificates.map((c) => {
-        let reqCourses = getRequiredCourses(c, csvData);
         let certTitle = certificateData
           .filter((a) => a.value === c)
           .map((a) => a.label)[0];
+        let reqCourses = getRequiredCourses(c, csvData);
+        let eleCourses = getElectiveCourses(c, csvData);
+        console.log("eleCourses", eleCourses);
+        let takenOrPlannedCourses = _union(tabInfo.completed, plannedCourses);
+        let tpEleCourses = _intersection(eleCourses, takenOrPlannedCourses);
+        let courses = _union(reqCourses, tpEleCourses);
         return (
           <DisplayList
             tabInfo={tabInfo}
             plannedCourses={plannedCourses}
             subheader={`${certTitle} Certificate`}
-            displayArray={reqCourses}
+            displayArray={courses}
           />
         );}
       )}

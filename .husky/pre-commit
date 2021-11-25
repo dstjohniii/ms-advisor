@@ -2,6 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 echo "[Husky] pre-commit building prod"
-cd client
-npm run prod
-git add build
+# cd client
+# npm run prod
+# git add build

@@ -768,8 +768,8 @@
       { "courseNum": 2750, "subject": "CMP_SCI" },
       [
         "OR",
-        { "courseNum": 3702, "subject": "CMP_SCI" },
-        { "courseNum": 3848, "subject": "INFSYS" }
+        { "courseNum": 3010, "subject": "CMP_SCI" },
+        { "courseNum": 4010, "subject": "INFSYS" }
       ]
     ]
   },

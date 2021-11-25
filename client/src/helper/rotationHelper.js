@@ -232,6 +232,15 @@ export function isPrereqsSatisfiedComplete(courseId, data, tabInfo) {
   return preReqinternalComplete(preStruct, semesters, tabInfo);
 }
 
+// returns true if the course has been completed already.
+export function isCourseComplete(courseId, tabInfo) {
+  return (
+    tabInfo.restricted.includes("C" + courseId) ||
+    tabInfo.completed.includes("C" + courseId) ||
+    tabInfo.waived.includes("C" + courseId)
+  );
+}
+
 function preReqinternalComplete(prereqs, semesters, tabInfo) {
   const first = prereqs[0];
   if (typeof first !== "string")
@@ -274,15 +283,6 @@ function preReqinternalComplete(prereqs, semesters, tabInfo) {
     });
     return response;
   }
-}
-
-// returns true if the course has been completed already.
-export function isCourseComplete(courseId, tabInfo) {
-  return (
-    tabInfo.restricted.includes("C" + courseId) ||
-    tabInfo.completed.includes("C" + courseId) ||
-    tabInfo.waived.includes("C" + courseId)
-  );
 }
 
 // Determines if the given course is selected in the dataset.

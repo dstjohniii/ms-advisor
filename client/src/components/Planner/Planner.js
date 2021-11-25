@@ -10,6 +10,8 @@ import {
   getPrereqTypes,
   getPrereqIds,
   isPrereqsSatisfiedComplete,
+  getSemesters,
+  getDataColumns,
 } from "../../helper/rotationHelper.js";
 import AlertSnackbar from "../AlertSnackbar";
 import courses from "../../data/ClassInfo.json";
@@ -58,8 +60,8 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
     newData.columns["available-classes"].taskIds = Object.keys(newData.classes)
       .filter((a) => {
         let response = true;
-        Object.entries(newData.columns).forEach((c) => {
-          if (c[1].id !== "available-classes" && c[1].taskIds.includes(a)) {
+        getSemesters(newData).forEach((c) => {
+          if (c.taskIds.includes(a)) {
             response = false;
             return;
           }
@@ -68,9 +70,9 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
       })
       .reverse();
 
-    Object.entries(newData.columns).forEach(
+    getDataColumns(newData).forEach(
       (c) =>
-        (c[1].taskIds = c[1].taskIds.filter(
+        (c.taskIds = c.taskIds.filter(
           (t) =>
             !tabInfo?.restricted.map((r) => (r = r.substring(1))).includes(t) &&
             !tabInfo?.completed.map((r) => (r = r.substring(1))).includes(t) &&
@@ -78,7 +80,7 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
         ))
     );
     setData(newData);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabInfo]);
 
   const onDragStart = ({ draggableId }) => {

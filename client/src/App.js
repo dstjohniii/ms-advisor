@@ -4,11 +4,7 @@ import Typography from "@mui/material/Typography";
 import AdvisorRouter from "./components/AdvisorRouter";
 import Link from "@mui/material/Link";
 import { Breadcrumbs } from "@mui/material";
-import {
-  Link as RouterLink,
-  useRouteMatch,
-  useLocation,
-} from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 function formatTitle(title) {
   if (!title) return "Dashboard";
@@ -18,7 +14,6 @@ function formatTitle(title) {
 const LinkRouter = (props) => <Link {...props} component={RouterLink} />;
 
 export default function App() {
-  const match = useRouteMatch("/:route");
   const { pathname } = useLocation();
   const pathnames = pathname.split("/").filter((x) => x);
 

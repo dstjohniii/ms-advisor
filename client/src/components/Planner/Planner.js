@@ -1,4 +1,4 @@
-import { Container, Snackbar } from "@mui/material";
+import { Container } from "@mui/material";
 import { useState, useMemo, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
@@ -78,6 +78,7 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
         ))
     );
     setData(newData);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabInfo]);
 
   const onDragStart = ({ draggableId }) => {
@@ -115,7 +116,6 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
       !isPrereqsSatisfiedComplete(draggableId, data, tabInfo)
     ) {
       let prereqs = getPrereqIds(draggableId);
-
       const prereqTypes = getPrereqTypes(draggableId);
 
       if (

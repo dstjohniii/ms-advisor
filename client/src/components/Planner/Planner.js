@@ -12,6 +12,7 @@ import {
   isPrereqsSatisfiedComplete,
   getSemesters,
   getDataColumns,
+  isCourseComplete,
 } from "../../helper/rotationHelper.js";
 import AlertSnackbar from "../AlertSnackbar";
 import courses from "../../data/ClassInfo.json";
@@ -72,12 +73,7 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
 
     getDataColumns(newData).forEach(
       (c) =>
-        (c.taskIds = c.taskIds.filter(
-          (t) =>
-            !tabInfo?.restricted.map((r) => (r = r.substring(1))).includes(t) &&
-            !tabInfo?.completed.map((r) => (r = r.substring(1))).includes(t) &&
-            !tabInfo?.waived.map((r) => (r = r.substring(1))).includes(t)
-        ))
+        (c.taskIds = c.taskIds.filter((t) => !isCourseComplete(t, tabInfo)))
     );
     setData(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps

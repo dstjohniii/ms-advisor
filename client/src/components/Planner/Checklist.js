@@ -6,8 +6,20 @@ import DisplayList from "./DisplayList";
 import _union from "lodash/union";
 import _intersection from "lodash/intersection"
 import certificateData from "../../data/Certificates.json"
+import CheckIcon from '@mui/icons-material/Check';
+import WarningIcon from '@mui/icons-material/Warning';
 
 export default function Checklist({ tabInfo, plannedCourses, csvData }) {
+  function getTotalCreditHours() {
+    const total = tabInfo.completed.length + plannedCourses.length;
+    return total * 3;
+  }
+
+  function is6000Satisfied() {
+    const courses = _union(tabInfo.completed, plannedCourses);
+    return courses.some((v) => v.startsWith('6'));
+  }
+
   let allCore = ["4250", "5130", "5500"];
   let coreCourses = _union(allCore, getRequiredCourses(tabInfo.degreePath, csvData));
   return (
@@ -34,10 +46,22 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
       > 
       Degree Checklist
       </Typography>
+      
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}>
 			<Typography sx={{padding: 1}}>
-				Total completed courses: {tabInfo.completed.length * 3} / 30
+				Total credit hours: {getTotalCreditHours()} / 30
 			</Typography>
+      {getTotalCreditHours() >= 30 
+        ? <CheckIcon style={{fill: "green"}} /> 
+        : <WarningIcon style={{fill: "red"}}/>
+      }
+      </div>
       <hr/>
+
       {tabInfo.restricted.length > 0 && 
         <DisplayList 
           tabInfo={tabInfo}

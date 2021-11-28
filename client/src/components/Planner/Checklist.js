@@ -68,6 +68,7 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
           plannedCourses={plannedCourses}
           subheader={"Restricted Courses"}
           displayArray={tabInfo.restricted}
+          total={tabInfo.restricted.length}
         />
       }
       <DisplayList 
@@ -75,6 +76,11 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         plannedCourses={plannedCourses}
         subheader={"Core"}
         displayArray={coreCourses}
+        total={
+          tabInfo.degreePath === "traditional"
+            ? 5
+            : 3
+        }
       />
       {tabInfo.certificates.map((c) => {
         let certTitle = certificateData
@@ -82,7 +88,7 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
           .map((a) => a.label)[0];
         let reqCourses = getRequiredCourses(c, csvData);
         let eleCourses = getElectiveCourses(c, csvData);
-        console.log("eleCourses", eleCourses);
+        console.log(c, reqCourses, eleCourses);
         let takenOrPlannedCourses = _union(tabInfo.completed, plannedCourses);
         let tpEleCourses = _intersection(eleCourses, takenOrPlannedCourses);
         let courses = _union(reqCourses, tpEleCourses);
@@ -92,6 +98,7 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
             plannedCourses={plannedCourses}
             subheader={`${certTitle} Certificate`}
             displayArray={courses}
+            total={4}
           />
         );}
       )}

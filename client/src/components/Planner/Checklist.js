@@ -96,9 +96,12 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
           <DisplayList
             tabInfo={tabInfo}
             plannedCourses={plannedCourses}
-            subheader={`${certTitle} Certificate`}
+            subheader={`${certTitle}`}
             displayArray={courses}
             total={4}
+            isCertificate={true}
+            reqCourses={reqCourses}
+            eleCourses={eleCourses}
           />
         );}
       )}

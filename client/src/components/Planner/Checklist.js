@@ -15,13 +15,11 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
     return total * 3;
   }
 
-  function is6000Satisfied() {
-    const courses = _union(tabInfo.completed, plannedCourses);
-    return courses.some((v) => v.startsWith('6'));
-  }
-
   let allCore = ["4250", "5130", "5500"];
   let coreCourses = _union(allCore, getRequiredCourses(tabInfo.degreePath, csvData));
+  let takenOrPlannedCourses = _union(tabInfo.completed, plannedCourses);
+  let courses6000 = takenOrPlannedCourses.filter((c) => c.startsWith("6"));
+
   return (
     <Paper
       sx={{
@@ -62,6 +60,14 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
       </div>
       <hr/>
 
+      <DisplayList 
+        tabInfo={tabInfo}
+        plannedCourses={plannedCourses}
+        subheader={"6000 Level Course"}
+        displayArray={courses6000}
+        total={1}
+      />
+
       {tabInfo.restricted.length > 0 && 
         <DisplayList 
           tabInfo={tabInfo}
@@ -89,7 +95,6 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         let reqCourses = getRequiredCourses(c, csvData);
         let eleCourses = getElectiveCourses(c, csvData);
         console.log(c, reqCourses, eleCourses);
-        let takenOrPlannedCourses = _union(tabInfo.completed, plannedCourses);
         let tpEleCourses = _intersection(eleCourses, takenOrPlannedCourses);
         let courses = _union(reqCourses, tpEleCourses);
         return (

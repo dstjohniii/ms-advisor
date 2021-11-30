@@ -11,7 +11,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 export default function Checklist({ tabInfo, plannedCourses, csvData }) {
   function getTotalCreditHours() {
     const total = tabInfo.completed.length + plannedCourses.length;
-    return total * 3;
+    return (total * 3) + tabInfo.transfer;
   }
 
   let allCore = ["4250", "5130", "5500"];

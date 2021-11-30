@@ -28,7 +28,6 @@ export default function DisplayList(props) {
 
 	let subheader;
 	if (props.isCertificate) {
-		console.log(props.subheader, props.reqCourses);
 		subheader = 
 			<CustomTooltip 
 				placement="top-start"

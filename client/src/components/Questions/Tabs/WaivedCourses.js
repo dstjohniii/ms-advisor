@@ -33,7 +33,6 @@ export default function WaivedCourses({ tabInfo, setTabInfo, csvData }) {
 
   // get all 6000 prereqs
   reqCourses = _union(reqCourses, get6000Prereqs());
-  console.log(`reqCourses`, reqCourses);
 
   // filter the courses to what to display
   const options = courses

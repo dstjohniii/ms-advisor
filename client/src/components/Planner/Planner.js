@@ -12,8 +12,6 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
   const [availableCols, setAvailableCols] = useState(null);
   const [plannedCourses, setPlannedCourses] = useState([]);
   
-  console.log("csvDataPlanner: ", csvData);
-
   //Useful for debugging
   useEffect(() => {
     if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {

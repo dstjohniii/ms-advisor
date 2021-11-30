@@ -1,6 +1,5 @@
-import { ListItem, ListItemText, ListSubheader, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import List from "@mui/material/List"
 import { getElectiveCourses, getRequiredCourses } from "../../helper/rotationHelper";
 import DisplayList from "./DisplayList";
 import _union from "lodash/union";
@@ -94,7 +93,6 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
           .map((a) => a.label)[0];
         let reqCourses = getRequiredCourses(c, csvData);
         let eleCourses = getElectiveCourses(c, csvData);
-        console.log(c, reqCourses, eleCourses);
         let tpEleCourses = _intersection(eleCourses, takenOrPlannedCourses);
         let courses = _union(reqCourses, tpEleCourses);
         return (

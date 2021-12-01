@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { useState, useMemo, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
+import Semester from "./Semester";
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checklist from "./Checklist";
@@ -248,7 +249,15 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
                   tasks={tasks}
                   isDropDisabled={isDropDisabled}
                   isActive={availableCols?.includes(column.id)}
-                />
+                >
+                  <Semester
+                    key={column.id}
+                    column={column}
+                    tasks={tasks}
+                    isDropDisabled={isDropDisabled}
+                    isActive={availableCols?.includes(column.id)}
+                  />
+                </Box>
               );
             })}
           </Paper>

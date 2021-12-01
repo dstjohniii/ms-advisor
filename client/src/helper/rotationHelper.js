@@ -228,16 +228,15 @@ function preReqinternal(prereqs, semesters) {
 export function isPrereqsSatisfiedComplete(courseId, data, tabInfo) {
   const preStruct = getPreqStructure(courseId);
   const semesters = getSemesters(data);
-
   return preReqinternalComplete(preStruct, semesters, tabInfo);
 }
 
 // returns true if the course has been completed already.
 export function isCourseComplete(courseId, tabInfo) {
   return (
-    tabInfo.restricted.includes("C" + courseId) ||
-    tabInfo.completed.includes("C" + courseId) ||
-    tabInfo.waived.includes("C" + courseId)
+    tabInfo.restricted.includes("" + courseId) ||
+    tabInfo.completed.includes("" + courseId) ||
+    tabInfo.waived.includes("" + courseId)
   );
 }
 

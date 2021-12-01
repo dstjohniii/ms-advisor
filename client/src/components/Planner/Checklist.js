@@ -8,6 +8,8 @@ import certificateData from "../../data/Certificates.json"
 import CheckIcon from '@mui/icons-material/Check';
 import WarningIcon from '@mui/icons-material/Warning';
 
+const TOTAL_CREDIT_HOURS = 30;
+
 export default function Checklist({ tabInfo, plannedCourses, csvData }) {
   function getTotalCreditHours() {
     const total = tabInfo.completed.length + plannedCourses.length;
@@ -50,7 +52,7 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         flexWrap: 'wrap',
       }}>
 			<Typography sx={{padding: 1}}>
-				Total credit hours: {getTotalCreditHours()} / 30
+				Total credit hours: {getTotalCreditHours()} / {TOTAL_CREDIT_HOURS}
 			</Typography>
       {getTotalCreditHours() >= 30 
         ? <CheckIcon style={{fill: "green"}} /> 

@@ -22,7 +22,7 @@ export default function RestrictedCourses({ tabInfo, setTabInfo }) {
 
   const options = courses.filter((v) => v.restricted).map((item) => {
     let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
-    let id = `${item.subject.charAt(0)}${item.courseNum}`;
+    let id = `${item.courseNum}`;
     let checked = tabInfo.restricted.includes(id);
 
     return (

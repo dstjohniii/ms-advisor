@@ -33,14 +33,13 @@ export default function WaivedCourses({ tabInfo, setTabInfo, csvData }) {
 
   // get all 6000 prereqs
   reqCourses = _union(reqCourses, get6000Prereqs());
-  console.log(`reqCourses`, reqCourses);
 
   // filter the courses to what to display
   const options = courses
     .filter((v) => v.core || reqCourses.includes("" + v.courseNum))
     .map((item) => {
       let label = `${item.subject} ${item.courseNum} - ${item.courseName}`;
-      let id = `${item.subject.charAt(0)}${item.courseNum}`;
+      let id = `${item.courseNum}`;
       let checked = tabInfo.waived.includes(id);
 
       return (

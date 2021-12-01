@@ -6,16 +6,38 @@ import Semester from "./Semester";
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import { isOffered } from "../../helper/rotationHelper.js";
+import Checklist from "./Checklist";
 
 export default function Planner({ data, setData, tabInfo, csvData }) {
   const [availableCols, setAvailableCols] = useState(null);
-
+  const [plannedCourses, setPlannedCourses] = useState([]);
+  
   //Useful for debugging
   useEffect(() => {
     if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
       console.log("tabInfoPlanner: ", tabInfo);
     }
   }, [tabInfo]);
+
+  useEffect(() => {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+      console.log("dataEffect: ", data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+      console.log("plannedCourses: ", plannedCourses);
+    }
+  }, [plannedCourses]);
+
+  // save planned courses when placing courses
+  useEffect(() => {
+    let columns = Object.assign({}, data.columns, {'available-classes': null});
+    let columnsArray = Object.values(columns);
+    let tempArray = [].concat(...columnsArray.filter((v) => v).map((a) => a.taskIds || []));
+    setPlannedCourses(tempArray);
+  }, [data]);
 
   // filter out completed / waived courses
   useEffect(() => {
@@ -190,6 +212,23 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
             );
           })}
         </Paper>
+        <Paper
+          sx={{
+            display: "flex",
+            maxHeight: 750,
+            marginLeft: 10,
+            position: "sticky",
+            top: 0,
+            backgroundColor: (theme) => theme.palette.grey[400],
+          }}
+        >
+          <Checklist 
+            tabInfo={tabInfo}
+            plannedCourses={plannedCourses}
+            csvData={csvData}
+          >
+          </Checklist>
+      </Paper>
       </Container>
     </DragDropContext>
   );

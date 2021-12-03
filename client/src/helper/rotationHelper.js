@@ -67,6 +67,14 @@ export async function getAvailableClasses() {
   return filteredData;
 }
 
+export function isCourseRestricted(courseNum) {
+  return (
+    courses.filter(
+      (c) => String(c.courseNum) === String(courseNum) && c.restricted
+    ).length > 0
+  );
+}
+
 /*
  * Given a program id, returns an array of required course ids. Excluding 6000.
  * programIds
@@ -234,7 +242,6 @@ export function isPrereqsSatisfiedComplete(courseId, data, tabInfo) {
 // returns true if the course has been completed already.
 export function isCourseComplete(courseId, tabInfo) {
   return (
-    tabInfo.restricted.includes("" + courseId) ||
     tabInfo.completed.includes("" + courseId) ||
     tabInfo.waived.includes("" + courseId)
   );

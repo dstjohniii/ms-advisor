@@ -14,6 +14,7 @@ import {
   getSemesters,
   getDataColumns,
   isCourseComplete,
+  isCourseRestricted,
 } from "../../helper/rotationHelper.js";
 import AlertSnackbar from "../AlertSnackbar";
 import courses from "../../data/ClassInfo.json";
@@ -68,6 +69,8 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
             return;
           }
         });
+        if (isCourseRestricted(a) && !tabInfo.restricted.includes("" + a))
+          response = false;
         return response;
       })
       .reverse();

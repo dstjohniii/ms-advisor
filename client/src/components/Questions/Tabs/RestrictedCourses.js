@@ -51,7 +51,7 @@ export default function RestrictedCourses({ tabInfo, setTabInfo }) {
     >
       <Typography variant="h2">Restricted Courses</Typography>
       <Typography>
-        Select restricted courses already completed/in progress
+        Select restricted courses that you plan on taking
       </Typography>
       <FormGroup>{options}</FormGroup>
     </Container>

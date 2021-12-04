@@ -68,7 +68,6 @@ export default function Planner({
   // filter out completed / waived courses
   useEffect(() => {
     let newData = { ...data };
-    console.log(`newData`, newData);
     newData.columns["available-classes"].taskIds = Object.keys(newData.classes)
       .filter((a) => {
         let response = true;
@@ -92,7 +91,6 @@ export default function Planner({
 
   //set year and add three years to display
   useEffect(() => {
-    console.log(`year`, year);
     if (!year) {
       const time = new Date();
       var fullYear = time.getFullYear();
@@ -250,7 +248,6 @@ export default function Planner({
     Object.keys(newData.columns).forEach((key) => {
       if (key === semester) {
         newData.columns[semester].taskIds.forEach((t) => {
-          console.log(`t`, t);
           newData.columns["available-classes"].taskIds.push(t);
         });
         newData.columns["available-classes"].taskIds.sort().reverse();

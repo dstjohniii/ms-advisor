@@ -1,4 +1,4 @@
-import { Container, Button } from "@mui/material";
+import { Container } from "@mui/material";
 import { useState, useMemo, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
@@ -17,13 +17,22 @@ import {
 } from "../../helper/rotationHelper.js";
 import AlertSnackbar from "../AlertSnackbar";
 import courses from "../../data/ClassInfo.json";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
+import IconButton from "@mui/material/IconButton";
 
-export default function Planner({ data, setData, tabInfo, csvData }) {
+export default function Planner({
+  data,
+  setData,
+  tabInfo,
+  csvData,
+  year,
+  setYear,
+}) {
   const [availableCols, setAvailableCols] = useState(null);
   const [showSnack, setShowSnack] = useState(false);
   const [snackMsg, setSnackMsg] = useState(null);
   const [plannedCourses, setPlannedCourses] = useState([]);
-  const [year, setYear] = useState(null);
 
   //Useful for debugging
   useEffect(() => {
@@ -83,47 +92,16 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
 
   //set year and add three years to display
   useEffect(() => {
-    var newData = {...data};
-    const time = new Date();
-    var x = time.getFullYear();
-
-    for(var i = 0; i < 3; i++){
-      var y = x + i;
-      var spKey = "SP-" + y;
-      var ssKey = "SS-" + y;
-      var fsKey = "FS-" + y;
-      var spTitle = "Spring " + y;
-      var ssTitle = "Summer " + y;
-      var fsTitle = "Fall " + y;
-
-      var spring = {
-        key: spKey,
-        id: spKey,
-        title: spTitle,
-        taskIds: []
-      };
-      var summer = {
-        key: ssKey,
-        id: ssKey,
-        title: ssTitle,
-        taskIds: []
-      };
-      var fall = {
-        key: fsKey,
-        id: fsKey,
-        title: fsTitle,
-        taskIds: []
-      };
-
-      newData.columns[spKey] = spring;
-      newData.columnOrder.push(spKey);
-      newData.columns[ssKey] = summer;
-      newData.columnOrder.push(ssKey);
-      newData.columns[fsKey] = fall;
-      newData.columnOrder.push(fsKey);
+    console.log(`year`, year);
+    if (!year) {
+      const time = new Date();
+      var fullYear = time.getFullYear();
+      addYear(fullYear);
+      addYear(fullYear + 1);
+      addYear(fullYear + 2);
     }
-    setYear(y);
-  },[])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onDragStart = ({ draggableId }) => {
     if (!csvData) {
@@ -232,83 +210,54 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
   };
 
   //Code to add and remove year
-  function addYear(){
-    var newData = {...data};
-    var y = year + 1;
-    var spKey = "SP-" + y;
-    var ssKey = "SS-" + y;
-    var fsKey = "FS-" + y;
-    var spTitle = "Spring " + y;
-    var ssTitle = "Summer " + y;
-    var fsTitle = "Fall " + y;
-
-    var spring = {
-      key: spKey,
-      id: spKey,
-      title: spTitle,
-      taskIds: []
-    };
-    var summer = {
-      key: ssKey,
-      id: ssKey,
-      title: ssTitle,
-      taskIds: []
-    };
-    var fall = {
-      key: fsKey,
-      id: fsKey,
-      title: fsTitle,
-      taskIds: []
-    };
-    newData.columns[spKey] = spring;
-    newData.columnOrder.push(spKey);
-    newData.columns[ssKey] = summer;
-    newData.columnOrder.push(ssKey);
-    newData.columns[fsKey] = fall;
-    newData.columnOrder.push(fsKey);
-    setYear(y);
+  function addYear(y) {
+    var newData = { ...data };
+    var localYear = typeof y === "number" ? y : year + 1;
+    addSemester(localYear, "SP", "Spring", newData);
+    addSemester(localYear, "SS", "Summer", newData);
+    addSemester(localYear, "FS", "Fall", newData);
+    setData(newData);
+    setYear(localYear);
   }
 
-  function removeYear(){
+  function addSemester(y, key, semester, newData) {
+    const semKey = key + "-" + y;
+    const spTitle = semester + " " + y;
+    const semStruct = {
+      key: semKey,
+      id: semKey,
+      title: spTitle,
+      taskIds: [],
+    };
+
+    newData.columns[semKey] = semStruct;
+    newData.columnOrder.push(semKey);
+  }
+
+  function removeYear() {
     const time = new Date();
-    if(year >= time.getFullYear()){
-      let newData = {...data};
-      var spring = "SP-" + year;
-      var summer = "SS-" + year;
-      var fall = "FS-" + year;
-      Object.keys(newData.columns).forEach(function (key) {
-        if(key.match(fall)){
-          for(var i = 0; i < newData.columns[fall].taskIds.length; i++){
-            newData.columns["available-classes"].taskIds.push(newData.columns[fall].taskIds[i]);
-          }
-          newData.columns["available-classes"].taskIds.sort().reverse();
-          delete newData.columns[key];
-        } 
-      });
-      Object.keys(newData.columns).forEach(function (key) {
-        if(key.match(summer)){
-          for(var i = 0; i < newData.columns[summer].taskIds.length; i++){
-            newData.columns["available-classes"].taskIds.push(newData.columns[summer].taskIds[i]);
-          }
-          newData.columns["available-classes"].taskIds.sort().reverse();
-          delete newData.columns[key];
-        } 
-      });
-      Object.keys(newData.columns).forEach(function (key) {
-        if(key.match(spring)){
-          for(var i = 0; i < newData.columns[spring].taskIds.length; i++){
-            newData.columns["available-classes"].taskIds.push(newData.columns[spring].taskIds[i]);
-          }
-          newData.columns["available-classes"].taskIds.sort();
-          delete newData.columns[key];
-        } 
-      });
-      newData.columnOrder.pop();
-      newData.columnOrder.pop();
-      newData.columnOrder.pop();    
+    if (year > time.getFullYear()) {
+      let newData = { ...data };
+      removeSemester("SP-" + year, newData);
+      removeSemester("SS-" + year, newData);
+      removeSemester("FS-" + year, newData);
       setData(newData);
-      setYear(year -1);   
-    } 
+      setYear(year - 1);
+    }
+  }
+
+  function removeSemester(semester, newData) {
+    Object.keys(newData.columns).forEach((key) => {
+      if (key === semester) {
+        newData.columns[semester].taskIds.forEach((t) => {
+          console.log(`t`, t);
+          newData.columns["available-classes"].taskIds.push(t);
+        });
+        newData.columns["available-classes"].taskIds.sort().reverse();
+        delete newData.columns[key];
+      }
+    });
+    newData.columnOrder.pop();
   }
 
   const availableClasses = data.columns["available-classes"];
@@ -345,61 +294,63 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
               column={availableClasses}
               tasks={availableTasks}
             />
-
           </Paper>
-          
-          <div
-            sx={{
-              height: 10,
-              width: 10,
-            }}
-          >
-            <Button variant = "dark" onClick = {addYear}>Add Year</Button>
-            <Button variant = "dark" onClick = {removeYear}>Remove Year</Button>
-          </div>
 
-          <Paper
-          
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              backgroundColor: (theme) => theme.palette.grey[400],
-              justifyContent: "center",
-            }}
-          >
-          
-            {data.columnOrder.map((columnId, index) => {
-              const column = data.columns[columnId];
-              const tasks = column.taskIds.map(
-                (taskId) => data.classes[taskId]
-              );
+          <div>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <IconButton onClick={removeYear}>
+                <RemoveCircleRoundedIcon />
+              </IconButton>
+              <IconButton onClick={addYear}>
+                <AddCircleIcon />
+              </IconButton>
+            </Box>
+            <Paper
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                backgroundColor: (theme) => theme.palette.grey[400],
+                justifyContent: "center",
+              }}
+            >
+              {data.columnOrder.map((columnId, index) => {
+                const column = data.columns[columnId];
+                const tasks = column.taskIds.map(
+                  (taskId) => data.classes[taskId]
+                );
 
-              const isDropDisabled = !availableCols?.includes(column.id);
-              
-              return (
-                
-                <Box
-                  sx={{
-                    display: "flex",
-                    paddingLeft: 0,
-                  }}
-                  key={column.id}
-                  column={column}
-                  tasks={tasks}
-                  isDropDisabled={isDropDisabled}
-                  isActive={availableCols?.includes(column.id)}
-                >
-                  <Semester
+                const isDropDisabled = !availableCols?.includes(column.id);
+
+                return (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      paddingLeft: 0,
+                    }}
                     key={column.id}
                     column={column}
                     tasks={tasks}
                     isDropDisabled={isDropDisabled}
                     isActive={availableCols?.includes(column.id)}
-                  />
-                </Box>
-              );
-            })}
-          </Paper>
+                  >
+                    <Semester
+                      key={column.id}
+                      column={column}
+                      tasks={tasks}
+                      isDropDisabled={isDropDisabled}
+                      isActive={availableCols?.includes(column.id)}
+                    />
+                  </Box>
+                );
+              })}
+            </Paper>
+          </div>
+
           <Paper
             sx={{
               display: "flex",

@@ -2,8 +2,9 @@ import { Switch, Route, Link as RouterLink, Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Planner from "./Planner/Planner";
 import QuestionTabs from "./Questions/QuestionTabs";
-import Link from "@mui/material/Link";
 import { getAvailableClasses, csvClasses } from "../helper/rotationHelper.js";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 export default function AdvisorRouter() {
   let tabInfoInitial = {
@@ -17,6 +18,7 @@ export default function AdvisorRouter() {
   const [data, setData] = useState(null);
   const [tabInfo, setTabInfo] = useState(tabInfoInitial);
   const [csvData, setCsvData] = useState(null);
+  const [year, setYear] = useState(null);
 
   //Filter out courses
   useEffect(() => {
@@ -33,19 +35,30 @@ export default function AdvisorRouter() {
             setData={setData}
             csvData={csvData}
             tabInfo={tabInfo}
+            year={year}
+            setYear={setYear}
           />
         ) : null}
       </Route>
       <Route path="/">
-        <Link
-          display="flex"
-          justifyContent="flex-end"
-          width="100%"
-          component={RouterLink}
-          to="/planner"
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
         >
-          Course Planning
-        </Link>
+          <Button
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+            variant="outlined"
+            component={RouterLink}
+            to="/planner"
+          >
+            Course Planning
+          </Button>
+        </Box>
         <QuestionTabs
           tabInfo={tabInfo}
           setTabInfo={setTabInfo}

@@ -314,7 +314,7 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
   const availableClasses = data.columns["available-classes"];
   const availableTasks = useMemo(
     () => availableClasses.taskIds.map((taskId) => data.classes[taskId]),
-    [availableClasses.taskIds, data]
+    [availableClasses.taskIds, data.classes]
   );
 
   return (

@@ -14,12 +14,21 @@ import {
   getSemesters,
   getDataColumns,
   isCourseComplete,
-  isCourseRestricted,
 } from "../../helper/rotationHelper.js";
 import AlertSnackbar from "../AlertSnackbar";
 import courses from "../../data/ClassInfo.json";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
+import IconButton from "@mui/material/IconButton";
 
-export default function Planner({ data, setData, tabInfo, csvData }) {
+export default function Planner({
+  data,
+  setData,
+  tabInfo,
+  csvData,
+  year,
+  setYear,
+}) {
   const [availableCols, setAvailableCols] = useState(null);
   const [showSnack, setShowSnack] = useState(false);
   const [snackMsg, setSnackMsg] = useState(null);
@@ -59,7 +68,6 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
   // filter out completed / waived courses
   useEffect(() => {
     let newData = { ...data };
-    console.log(`newData`, newData);
     newData.columns["available-classes"].taskIds = Object.keys(newData.classes)
       .filter((a) => {
         let response = true;
@@ -69,8 +77,6 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
             return;
           }
         });
-        if (isCourseRestricted(a) && !tabInfo.restricted.includes("" + a))
-          response = false;
         return response;
       })
       .reverse();
@@ -82,6 +88,18 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
     setData(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabInfo]);
+
+  //set year and add three years to display
+  useEffect(() => {
+    if (!year) {
+      const time = new Date();
+      var fullYear = time.getFullYear();
+      addYear(fullYear);
+      addYear(fullYear + 1);
+      addYear(fullYear + 2);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onDragStart = ({ draggableId }) => {
     if (!csvData) {
@@ -189,6 +207,56 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
     setData(newData);
   };
 
+  //Code to add and remove year
+  function addYear(y) {
+    var newData = { ...data };
+    var localYear = typeof y === "number" ? y : year + 1;
+    addSemester(localYear, "SP", "Spring", newData);
+    addSemester(localYear, "SS", "Summer", newData);
+    addSemester(localYear, "FS", "Fall", newData);
+    setData(newData);
+    setYear(localYear);
+  }
+
+  function addSemester(y, key, semester, newData) {
+    const semKey = key + "-" + y;
+    const spTitle = semester + " " + y;
+    const semStruct = {
+      key: semKey,
+      id: semKey,
+      title: spTitle,
+      taskIds: [],
+    };
+
+    newData.columns[semKey] = semStruct;
+    newData.columnOrder.push(semKey);
+  }
+
+  function removeYear() {
+    const time = new Date();
+    if (year > time.getFullYear()) {
+      let newData = { ...data };
+      removeSemester("SP-" + year, newData);
+      removeSemester("SS-" + year, newData);
+      removeSemester("FS-" + year, newData);
+      setData(newData);
+      setYear(year - 1);
+    }
+  }
+
+  function removeSemester(semester, newData) {
+    Object.keys(newData.columns).forEach((key) => {
+      if (key === semester) {
+        newData.columns[semester].taskIds.forEach((t) => {
+          newData.columns["available-classes"].taskIds.push(t);
+        });
+        newData.columns["available-classes"].taskIds.sort().reverse();
+        delete newData.columns[key];
+      }
+    });
+    newData.columnOrder.pop();
+  }
+
   const availableClasses = data.columns["available-classes"];
   const availableTasks = useMemo(
     () => availableClasses.taskIds.map((taskId) => data.classes[taskId]),
@@ -212,7 +280,7 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
             sx={{
               display: "flex",
               maxHeight: 750,
-              marginRight: 10,
+              marginRight: 5,
               position: "sticky",
               top: 0,
               backgroundColor: (theme) => theme.palette.grey[400],
@@ -225,45 +293,61 @@ export default function Planner({ data, setData, tabInfo, csvData }) {
             />
           </Paper>
 
-          <Paper
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              backgroundColor: (theme) => theme.palette.grey[400],
-              justifyContent: "center",
-            }}
-          >
-            {data.columnOrder.map((columnId, index) => {
-              const column = data.columns[columnId];
-              const tasks = column.taskIds.map(
-                (taskId) => data.classes[taskId]
-              );
+          <div>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <IconButton onClick={removeYear}>
+                <RemoveCircleRoundedIcon />
+              </IconButton>
+              <IconButton onClick={addYear}>
+                <AddCircleIcon />
+              </IconButton>
+            </Box>
+            <Paper
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                backgroundColor: (theme) => theme.palette.grey[400],
+                justifyContent: "center",
+              }}
+            >
+              {data.columnOrder.map((columnId, index) => {
+                const column = data.columns[columnId];
+                const tasks = column.taskIds.map(
+                  (taskId) => data.classes[taskId]
+                );
 
-              const isDropDisabled = !availableCols?.includes(column.id);
+                const isDropDisabled = !availableCols?.includes(column.id);
 
-              return (
-                <Box
-                  sx={{
-                    display: "flex",
-                    paddingLeft: 0,
-                  }}
-                  key={column.id}
-                  column={column}
-                  tasks={tasks}
-                  isDropDisabled={isDropDisabled}
-                  isActive={availableCols?.includes(column.id)}
-                >
-                  <Semester
+                return (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      paddingLeft: 0,
+                    }}
                     key={column.id}
                     column={column}
                     tasks={tasks}
                     isDropDisabled={isDropDisabled}
                     isActive={availableCols?.includes(column.id)}
-                  />
-                </Box>
-              );
-            })}
-          </Paper>
+                  >
+                    <Semester
+                      key={column.id}
+                      column={column}
+                      tasks={tasks}
+                      isDropDisabled={isDropDisabled}
+                      isActive={availableCols?.includes(column.id)}
+                    />
+                  </Box>
+                );
+              })}
+            </Paper>
+          </div>
+
           <Paper
             sx={{
               display: "flex",

@@ -298,6 +298,11 @@ export default function Planner({
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
+                position: "sticky",
+                top: 0,
+                backgroundColor: (theme) => "white",
+                zIndex: 10,
+                borderRadius: 2,
               }}
             >
               <IconButton onClick={removeYear}>

@@ -1,23 +1,36 @@
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import { getElectiveCourses, getRequiredCourses } from "../../helper/rotationHelper";
+import {
+  getElectiveCourses,
+  getRequiredCourses,
+} from "../../helper/rotationHelper";
 import DisplayList from "./DisplayList";
 import _union from "lodash/union";
-import _intersection from "lodash/intersection"
-import certificateData from "../../data/Certificates.json"
-import CheckIcon from '@mui/icons-material/Check';
-import WarningIcon from '@mui/icons-material/Warning';
+import _intersection from "lodash/intersection";
+import certificateData from "../../data/Certificates.json";
+import CheckIcon from "@mui/icons-material/Check";
+import WarningIcon from "@mui/icons-material/Warning";
+import courses from "../../data/ClassInfo.json";
 
 const TOTAL_CREDIT_HOURS = 30;
 
 export default function Checklist({ tabInfo, plannedCourses, csvData }) {
   function getTotalCreditHours() {
-    const total = tabInfo.completed.length + plannedCourses.length;
-    return (total * 3) + tabInfo.transfer;
+    const plannedRestrictedCourses = courses
+      .filter((v) => v.restricted)
+      .filter((c) => plannedCourses.includes("" + c.courseNum));
+    const total =
+      tabInfo.completed.length +
+      plannedCourses.length -
+      plannedRestrictedCourses.length;
+    return total * 3 + tabInfo.transfer;
   }
 
   let allCore = ["4250", "5130", "5500"];
-  let coreCourses = _union(allCore, getRequiredCourses(tabInfo.degreePath, csvData));
+  let coreCourses = _union(
+    allCore,
+    getRequiredCourses(tabInfo.degreePath, csvData)
+  );
   let takenOrPlannedCourses = _union(tabInfo.completed, plannedCourses);
   let courses6000 = takenOrPlannedCourses.filter((c) => c.startsWith("6"));
 
@@ -42,26 +55,29 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
           background: "white",
           padding: 1,
         }}
-      > 
-      Degree Checklist
+      >
+        Degree Checklist
       </Typography>
-      
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-      }}>
-			<Typography sx={{padding: 1}}>
-				Total credit hours: {getTotalCreditHours()} / {TOTAL_CREDIT_HOURS}
-			</Typography>
-      {getTotalCreditHours() >= 30 
-        ? <CheckIcon style={{fill: "green"}} /> 
-        : <WarningIcon style={{fill: "red"}}/>
-      }
-      </div>
-      <hr/>
 
-      <DisplayList 
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <Typography sx={{ padding: 1 }}>
+          Total credit hours: {getTotalCreditHours()} / {TOTAL_CREDIT_HOURS}
+        </Typography>
+        {getTotalCreditHours() >= 30 ? (
+          <CheckIcon style={{ fill: "green" }} />
+        ) : (
+          <WarningIcon style={{ fill: "red" }} />
+        )}
+      </div>
+      <hr />
+
+      <DisplayList
         tabInfo={tabInfo}
         plannedCourses={plannedCourses}
         subheader={"6000 Level Course"}
@@ -69,25 +85,21 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         total={1}
       />
 
-      {tabInfo.restricted.length > 0 && 
-        <DisplayList 
+      {tabInfo.restricted.length > 0 && (
+        <DisplayList
           tabInfo={tabInfo}
           plannedCourses={plannedCourses}
           subheader={"Restricted Courses"}
           displayArray={tabInfo.restricted}
           total={tabInfo.restricted.length}
         />
-      }
-      <DisplayList 
+      )}
+      <DisplayList
         tabInfo={tabInfo}
         plannedCourses={plannedCourses}
         subheader={"Core"}
         displayArray={coreCourses}
-        total={
-          tabInfo.degreePath === "traditional"
-            ? 5
-            : 3
-        }
+        total={tabInfo.degreePath === "traditional" ? 5 : 3}
       />
       {tabInfo.certificates.map((c) => {
         let certTitle = certificateData
@@ -108,8 +120,8 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
             reqCourses={reqCourses}
             eleCourses={eleCourses}
           />
-        );}
-      )}
+        );
+      })}
     </Paper>
   );
 }

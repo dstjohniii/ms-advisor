@@ -189,16 +189,16 @@ export function getPrereqTypes(courseId) {
 /* Determines if course has its prerequisites satisfied by the given data.
  * This does not take into account information from the tabinfo
  */
-export function isPrereqsSatisfied(courseId, data) {
+export function isPrereqsSatisfied(courseId, data, plannedCourses) {
   const preStruct = getPreqStructure(courseId);
-  const semesters = getSemesters(data);
-  return preReqinternal(preStruct, semesters);
+  // const semesters = getSemesters(data);
+  return preReqinternal(preStruct, plannedCourses);
 }
 
-function preReqinternal(prereqs, semesters) {
+function preReqinternal(prereqs, plannedCourses) {
   const first = prereqs[0];
   if (typeof first !== "string")
-    return isCourseSelectedSemesters(prereqs[0].courseNum, semesters);
+    return plannedCourses.includes(prereqs[0].courseNum);
 
   const slicedPreqs = prereqs.slice(1);
   if (first === "OR") {
@@ -208,9 +208,8 @@ function preReqinternal(prereqs, semesters) {
       if (s === "Grad_Standing") {
         response = true;
       } else if (s instanceof Array) {
-        response = preReqinternal(s, semesters);
-      } else if (isCourseSelectedSemesters(s.courseNum, semesters))
-        response = true;
+        response = preReqinternal(s, plannedCourses);
+      } else if (plannedCourses.includes(s.courseNum)) response = true;
     });
     return response;
   }
@@ -222,9 +221,8 @@ function preReqinternal(prereqs, semesters) {
       if (s === "Grad_Standing") {
         response = true;
       } else if (s instanceof Array) {
-        response = preReqinternal(s, semesters);
-      } else if (!isCourseSelectedSemesters(s.courseNum, semesters))
-        response = false;
+        response = preReqinternal(s, plannedCourses);
+      } else if (!plannedCourses.includes(s.courseNum)) response = false;
     });
     return response;
   }
@@ -233,10 +231,15 @@ function preReqinternal(prereqs, semesters) {
 /* Determines if course has its prerequisites satisfied by the given data,
  * and tabinfo
  */
-export function isPrereqsSatisfiedComplete(courseId, data, tabInfo) {
+export function isPrereqsSatisfiedComplete(
+  courseId,
+  data,
+  tabInfo,
+  plannedCourses
+) {
   const preStruct = getPreqStructure(courseId);
-  const semesters = getSemesters(data);
-  return preReqinternalComplete(preStruct, semesters, tabInfo);
+  // const semesters = getSemesters(data);
+  return preReqinternalComplete(preStruct, plannedCourses, tabInfo);
 }
 
 // returns true if the course has been completed already.
@@ -247,11 +250,12 @@ export function isCourseComplete(courseId, tabInfo) {
   );
 }
 
-function preReqinternalComplete(prereqs, semesters, tabInfo) {
+function preReqinternalComplete(prereqs, plannedCourses, tabInfo) {
   const first = prereqs[0];
   if (typeof first !== "string")
     return (
-      isCourseSelectedSemesters(prereqs[0].courseNum, semesters) ||
+      // isCourseSelectedSemesters(prereqs[0].courseNum, semesters) ||
+      plannedCourses.includes("" + prereqs[0].courseNum) ||
       isCourseComplete(prereqs[0].courseNum, tabInfo)
     );
 
@@ -263,9 +267,10 @@ function preReqinternalComplete(prereqs, semesters, tabInfo) {
       if (s === "Grad_Standing") {
         response = true;
       } else if (s instanceof Array) {
-        response = preReqinternalComplete(s, semesters, tabInfo);
+        response = preReqinternalComplete(s, plannedCourses, tabInfo);
       } else if (
-        isCourseSelectedSemesters(s.courseNum, semesters) ||
+        // isCourseSelectedSemesters(s.courseNum, plannedCourses) ||
+        plannedCourses.includes("" + s.courseNum) ||
         isCourseComplete(s.courseNum, tabInfo)
       )
         response = true;
@@ -280,9 +285,10 @@ function preReqinternalComplete(prereqs, semesters, tabInfo) {
       if (s === "Grad_Standing") {
         response = true;
       } else if (s instanceof Array) {
-        response = preReqinternalComplete(s, semesters, tabInfo);
+        response = preReqinternalComplete(s, plannedCourses, tabInfo);
       } else if (
-        !isCourseSelectedSemesters(s.courseNum, semesters) ||
+        // !isCourseSelectedSemesters(s.courseNum, plannedCourses) ||
+        !plannedCourses.includes("" + s.courseNum) ||
         isCourseComplete(s.courseNum, tabInfo)
       )
         response = false;

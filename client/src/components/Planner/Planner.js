@@ -133,7 +133,7 @@ export default function Planner({
     // warn user to select a pre-req if selecting a 6000.
     if (
       String(draggableId).startsWith("6") &&
-      !isPrereqsSatisfiedComplete(draggableId, data, tabInfo)
+      !isPrereqsSatisfiedComplete(draggableId, data, tabInfo, plannedCourses)
     ) {
       let prereqs = getPrereqIds(draggableId);
       const prereqTypes = getPrereqTypes(draggableId);
@@ -298,6 +298,11 @@ export default function Planner({
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
+                position: "sticky",
+                top: 0,
+                backgroundColor: (theme) => "white",
+                zIndex: 10,
+                borderRadius: 2,
               }}
             >
               <IconButton onClick={removeYear}>

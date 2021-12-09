@@ -92,7 +92,7 @@ export default function Checklist({
         }}
       >
         <Typography sx={{ padding: 1 }}>
-          5000 Level Courses {get5000TotalCreditHours()} /{" "}
+          5000 level credit hours {get5000TotalCreditHours()} /{" "}
           {TOTAL_5000_CREDIT_HOURS}
         </Typography>
         {get5000TotalCreditHours() >= TOTAL_5000_CREDIT_HOURS ? (

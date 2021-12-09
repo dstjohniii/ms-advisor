@@ -103,7 +103,10 @@ export default function CompletedCourses({
         }}
       >
         <Typography variant="h2">Completed and Transferred Courses</Typography>
-        <Typography>Select courses already completed/in progress</Typography>
+        <Typography>
+          Select courses already completed/in progress. All courses numbered
+          below 5000 must have been completed with a grade of at least B-.
+        </Typography>
         <FormGroup>{options}</FormGroup>
       </Container>
     </div>

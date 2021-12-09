@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Container } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
@@ -21,6 +21,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
 import IconButton from "@mui/material/IconButton";
 import CreditDialog from "../CreditDialog";
+import Button from "@mui/material/Button";
+import InstructionModal from "./InstructionModal";
 
 export default function Planner({
   data,
@@ -31,6 +33,8 @@ export default function Planner({
   setYear,
   courseCredits,
   setCourseCredits,
+  instructionModal,
+  setInstructionModal,
 }) {
   const [availableCols, setAvailableCols] = useState(null);
   const [showSnack, setShowSnack] = useState(false);
@@ -104,6 +108,10 @@ export default function Planner({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleOpenInstructions = useCallback(() => {
+    setInstructionModal(true);
+  }, [setInstructionModal]);
 
   const onDragStart = ({ draggableId }) => {
     if (!csvData) {
@@ -305,6 +313,8 @@ export default function Planner({
         courseCredits={courseCredits}
         setCourseCredits={setCourseCredits}
       />
+      <InstructionModal open={instructionModal} setOpen={setInstructionModal} />
+      <Button onClick={handleOpenInstructions}>Instructions</Button>
       <DragDropContext
         onDragEnd={onDragEnd}
         onDragStart={onDragStart}

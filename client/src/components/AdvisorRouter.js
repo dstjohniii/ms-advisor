@@ -20,6 +20,7 @@ export default function AdvisorRouter() {
   const [csvData, setCsvData] = useState(null);
   const [year, setYear] = useState(null);
   const [courseCredits, setCourseCredits] = useState([]);
+  const [instructionModal, setInstructionModal] = useState(true);
 
   //Filter out courses
   useEffect(() => {
@@ -40,6 +41,8 @@ export default function AdvisorRouter() {
             setYear={setYear}
             courseCredits={courseCredits}
             setCourseCredits={setCourseCredits}
+            instructionModal={instructionModal}
+            setInstructionModal={setInstructionModal}
           />
         ) : null}
       </Route>

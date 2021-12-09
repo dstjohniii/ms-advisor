@@ -19,6 +19,7 @@ export default function AdvisorRouter() {
   const [tabInfo, setTabInfo] = useState(tabInfoInitial);
   const [csvData, setCsvData] = useState(null);
   const [year, setYear] = useState(null);
+  const [courseCredits, setCourseCredits] = useState([]);
 
   //Filter out courses
   useEffect(() => {
@@ -37,6 +38,8 @@ export default function AdvisorRouter() {
             tabInfo={tabInfo}
             year={year}
             setYear={setYear}
+            courseCredits={courseCredits}
+            setCourseCredits={setCourseCredits}
           />
         ) : null}
       </Route>
@@ -63,6 +66,8 @@ export default function AdvisorRouter() {
           tabInfo={tabInfo}
           setTabInfo={setTabInfo}
           csvData={csvData}
+          courseCredits={courseCredits}
+          setCourseCredits={setCourseCredits}
         />
       </Route>
       <Route path="*">

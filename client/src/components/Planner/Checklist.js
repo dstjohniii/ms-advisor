@@ -14,16 +14,16 @@ import courses from "../../data/ClassInfo.json";
 
 const TOTAL_CREDIT_HOURS = 30;
 
-export default function Checklist({ tabInfo, plannedCourses, csvData }) {
+export default function Checklist({
+  tabInfo,
+  plannedCourses,
+  csvData,
+  courseCredits,
+}) {
   function getTotalCreditHours() {
-    const plannedRestrictedCourses = courses
-      .filter((v) => v.restricted)
-      .filter((c) => plannedCourses.includes("" + c.courseNum));
-    const total =
-      tabInfo.completed.length +
-      plannedCourses.length -
-      plannedRestrictedCourses.length;
-    return total * 3 + tabInfo.transfer;
+    let total = 0;
+    Object.entries(courseCredits).forEach((c) => (total += c[1]));
+    return total + tabInfo.transfer;
   }
 
   let allCore = ["4250", "5130", "5500"];

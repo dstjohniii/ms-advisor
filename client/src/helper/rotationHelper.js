@@ -254,7 +254,6 @@ function preReqinternalComplete(prereqs, plannedCourses, tabInfo) {
   const first = prereqs[0];
   if (typeof first !== "string")
     return (
-      // isCourseSelectedSemesters(prereqs[0].courseNum, semesters) ||
       plannedCourses.includes("" + prereqs[0].courseNum) ||
       isCourseComplete(prereqs[0].courseNum, tabInfo)
     );

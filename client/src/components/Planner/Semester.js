@@ -4,6 +4,8 @@ import List from "@mui/material/List";
 import { Droppable } from "react-beautiful-dnd";
 import Task from "./Task";
 
+
+
 export default function ColumnType({
   column,
   tasks,
@@ -50,7 +52,9 @@ export default function ColumnType({
             }}
           >
             {tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
+
+                <Task key={task.id} task={task} index={index} />
+
             ))}
             {provided.placeholder}
           </List>

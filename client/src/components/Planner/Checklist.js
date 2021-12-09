@@ -12,6 +12,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import WarningIcon from "@mui/icons-material/Warning";
 
 const TOTAL_CREDIT_HOURS = 30;
+const TOTAL_5000_CREDIT_HOURS = 18;
 
 export default function Checklist({
   tabInfo,
@@ -22,6 +23,14 @@ export default function Checklist({
   function getTotalCreditHours() {
     let total = 0;
     Object.entries(courseCredits).forEach((c) => (total += c[1]));
+    return total + tabInfo.transfer;
+  }
+
+  function get5000TotalCreditHours() {
+    let total = 0;
+    Object.entries(courseCredits)
+      .filter((c) => c[0].startsWith("5"))
+      .forEach((c) => (total += c[1]));
     return total + tabInfo.transfer;
   }
 
@@ -68,7 +77,25 @@ export default function Checklist({
         <Typography sx={{ padding: 1 }}>
           Total credit hours: {getTotalCreditHours()} / {TOTAL_CREDIT_HOURS}
         </Typography>
-        {getTotalCreditHours() >= 30 ? (
+        {getTotalCreditHours() >= TOTAL_CREDIT_HOURS ? (
+          <CheckIcon style={{ fill: "green" }} />
+        ) : (
+          <WarningIcon style={{ fill: "red" }} />
+        )}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <Typography sx={{ padding: 1 }}>
+          5000 Level Courses {get5000TotalCreditHours()} /{" "}
+          {TOTAL_5000_CREDIT_HOURS}
+        </Typography>
+        {get5000TotalCreditHours() >= TOTAL_5000_CREDIT_HOURS ? (
           <CheckIcon style={{ fill: "green" }} />
         ) : (
           <WarningIcon style={{ fill: "red" }} />

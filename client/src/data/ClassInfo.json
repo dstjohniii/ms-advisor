@@ -1438,7 +1438,7 @@
     "description": "Prerequisites: Completion of at least 12 graduate credits and approval of research topic by thesis advisor. This course is designed for students intending to pursue a thesis as part of their M.S. in Computer Science program. A maximum of 6 hours can be counted toward the program from a combination of CMP SCI 5880, CMP SCI 5900, and CMP SCI 6900.",
     "core": false,
     "restricted": false,
-    "credits": "1-6",
+    "credits": "3-6",
     "prevents": [],
     "rotation": {
       "Fall": true,

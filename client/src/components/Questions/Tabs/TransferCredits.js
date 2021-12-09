@@ -2,9 +2,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 
+const MAX_TRANSFER_CREDITS = 9;
+
 export default function TransferCredits({ tabInfo, setTabInfo }) {
   const handleChange = (e) => {
     if (Number(e.target.value) < 0 || !e.target.value) e.target.value = 0;
+    if (Number(e.target.value) > MAX_TRANSFER_CREDITS)
+      e.target.value = MAX_TRANSFER_CREDITS;
     if (e.target.value.startsWith("0"))
       e.target.value = e.target.value.substring(1);
     setTabInfo({ ...tabInfo, transfer: Number(e.target.value) });
@@ -26,7 +30,8 @@ export default function TransferCredits({ tabInfo, setTabInfo }) {
         }}
       >
         Enter the number of transfer credits that you are approved for but do
-        not associate with a class in the Completed Courses.
+        not associate with a class in the Completed Courses. Maximum of{" "}
+        {MAX_TRANSFER_CREDITS} credits allowed.
       </Typography>
       <TextField
         id="transfer-credits"

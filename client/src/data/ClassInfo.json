@@ -100,7 +100,7 @@
     "subject": "CMP_SCI",
     "description": "Prerequisites: CMP SCI 2261 (can be taken concurrently) or INFSYS 3806. This course provides a comprehensive overview of website development using prevalent LAMP stack architecture. Students will create well-structured, easily maintained, standards-compliant, accessible client-side code (HTML, CSS, JavaScript) in addition to server-side code (PHP and Python). Client-server computing projects are a course requirement. Students leave the course knowing how client-side code, server-side code, web servers, and databases function together.",
     "core": false,
-    "restricted": true,
+    "restricted": false,
     "credits": 0,
     "prevents": [],
     "rotation": {

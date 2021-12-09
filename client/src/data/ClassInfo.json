@@ -1343,6 +1343,23 @@
     "prerequisites": ["Grad_Standing"]
   },
   {
+    "courseNum": 5991,
+    "courseName": "Professional Experience",
+    "subject": "CMP_SCI",
+    "description": "This course is designed to give you up to 6 credit hours, one for each year you have worked professionally.",
+    "core": false,
+    "restricted": false,
+    "credits": "1-6",
+    "prevents": [],
+    "rotation": {
+      "Fall": true,
+      "Spring": true,
+      "Summer": true
+    },
+    "year": "both",
+    "prerequisites": ["Grad_Standing"]
+  },
+  {
     "courseNum": 6320,
     "courseName": "Advances in Evolutionary Computation",
     "subject": "CMP_SCI",

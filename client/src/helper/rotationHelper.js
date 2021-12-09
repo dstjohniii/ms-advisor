@@ -93,6 +93,9 @@ export function getRequiredCourses(programId, csvData) {
     compare = "R*";
     programId = "MSCS";
   }
+  if (programId === "professional") {
+    return ["5991"];
+  }
 
   return !csvData
     ? null

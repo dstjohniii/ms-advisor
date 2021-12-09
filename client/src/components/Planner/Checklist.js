@@ -10,7 +10,6 @@ import _intersection from "lodash/intersection";
 import certificateData from "../../data/Certificates.json";
 import CheckIcon from "@mui/icons-material/Check";
 import WarningIcon from "@mui/icons-material/Warning";
-import courses from "../../data/ClassInfo.json";
 
 const TOTAL_CREDIT_HOURS = 30;
 
@@ -99,7 +98,13 @@ export default function Checklist({
         plannedCourses={plannedCourses}
         subheader={"Core"}
         displayArray={coreCourses}
-        total={tabInfo.degreePath === "traditional" ? 5 : 3}
+        total={
+          tabInfo.degreePath === "traditional"
+            ? 5
+            : tabInfo.degreePath === "professional"
+            ? 4
+            : 3
+        }
       />
       {tabInfo.certificates.map((c) => {
         let certTitle = certificateData

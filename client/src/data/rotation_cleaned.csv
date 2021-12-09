@@ -32,6 +32,7 @@ Cmp Sci,5794,L,L,,L,,,,O,FS,
 Cmp Sci,5880,L,,,,,,,Arranged,FS SP SS,
 Cmp Sci,5888,L,R,,,,,,OE,FS SP,
 Cmp Sci,5900,L,,,,,,,Arranged,FS SP SS,
+Cmp Sci,5991,L,,,,,,,Arranged,FS SP SS,
 Cmp Sci,6320,R,,,,,,,E,FS,even
 Cmp Sci,6340,R,,,,,,,E,FS,odd
 Cmp Sci,6410,R,,,,,,,E,SP,even

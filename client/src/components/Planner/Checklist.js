@@ -10,20 +10,28 @@ import _intersection from "lodash/intersection";
 import certificateData from "../../data/Certificates.json";
 import CheckIcon from "@mui/icons-material/Check";
 import WarningIcon from "@mui/icons-material/Warning";
-import courses from "../../data/ClassInfo.json";
 
 const TOTAL_CREDIT_HOURS = 30;
+const TOTAL_5000_CREDIT_HOURS = 18;
 
-export default function Checklist({ tabInfo, plannedCourses, csvData }) {
+export default function Checklist({
+  tabInfo,
+  plannedCourses,
+  csvData,
+  courseCredits,
+}) {
   function getTotalCreditHours() {
-    const plannedRestrictedCourses = courses
-      .filter((v) => v.restricted)
-      .filter((c) => plannedCourses.includes("" + c.courseNum));
-    const total =
-      tabInfo.completed.length +
-      plannedCourses.length -
-      plannedRestrictedCourses.length;
-    return total * 3 + tabInfo.transfer;
+    let total = 0;
+    Object.entries(courseCredits).forEach((c) => (total += c[1]));
+    return total + tabInfo.transfer;
+  }
+
+  function get5000TotalCreditHours() {
+    let total = 0;
+    Object.entries(courseCredits)
+      .filter((c) => c[0].startsWith("5"))
+      .forEach((c) => (total += c[1]));
+    return total + tabInfo.transfer;
   }
 
   let allCore = ["4250", "5130", "5500"];
@@ -69,7 +77,25 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         <Typography sx={{ padding: 1 }}>
           Total credit hours: {getTotalCreditHours()} / {TOTAL_CREDIT_HOURS}
         </Typography>
-        {getTotalCreditHours() >= 30 ? (
+        {getTotalCreditHours() >= TOTAL_CREDIT_HOURS ? (
+          <CheckIcon style={{ fill: "green" }} />
+        ) : (
+          <WarningIcon style={{ fill: "red" }} />
+        )}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <Typography sx={{ padding: 1 }}>
+          5000 level credit hours {get5000TotalCreditHours()} /{" "}
+          {TOTAL_5000_CREDIT_HOURS}
+        </Typography>
+        {get5000TotalCreditHours() >= TOTAL_5000_CREDIT_HOURS ? (
           <CheckIcon style={{ fill: "green" }} />
         ) : (
           <WarningIcon style={{ fill: "red" }} />
@@ -99,7 +125,13 @@ export default function Checklist({ tabInfo, plannedCourses, csvData }) {
         plannedCourses={plannedCourses}
         subheader={"Core"}
         displayArray={coreCourses}
-        total={tabInfo.degreePath === "traditional" ? 5 : 3}
+        total={
+          tabInfo.degreePath === "traditional"
+            ? 5
+            : tabInfo.degreePath === "professional"
+            ? 4
+            : 3
+        }
       />
       {tabInfo.certificates.map((c) => {
         let certTitle = certificateData

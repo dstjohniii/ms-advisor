@@ -1,5 +1,5 @@
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Container } from "@mui/material";
-import { useState, useMemo, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import ClassHolder from "./ClassHolder";
 import Semester from "./Semester";
@@ -20,6 +20,9 @@ import courses from "../../data/ClassInfo.json";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
 import IconButton from "@mui/material/IconButton";
+import CreditDialog from "../CreditDialog";
+import Button from "@mui/material/Button";
+import InstructionModal from "./InstructionModal";
 
 export default function Planner({
   data,
@@ -28,11 +31,16 @@ export default function Planner({
   csvData,
   year,
   setYear,
+  courseCredits,
+  setCourseCredits,
+  instructionModal,
+  setInstructionModal,
 }) {
   const [availableCols, setAvailableCols] = useState(null);
   const [showSnack, setShowSnack] = useState(false);
   const [snackMsg, setSnackMsg] = useState(null);
   const [plannedCourses, setPlannedCourses] = useState([]);
+  const [creditOpen, setCreditOpen] = useState(false);
 
   //Useful for debugging
   useEffect(() => {
@@ -101,6 +109,10 @@ export default function Planner({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleOpenInstructions = useCallback(() => {
+    setInstructionModal(true);
+  }, [setInstructionModal]);
+
   const onDragStart = ({ draggableId }) => {
     if (!csvData) {
       return;
@@ -154,6 +166,31 @@ export default function Planner({
       }
     } else {
       setShowSnack(false);
+    }
+
+    // update the credits
+    if (destination.droppableId !== "available-classes") {
+      const credit = courses.filter(
+        (c) => String(c.courseNum) === String(draggableId)
+      )[0].credits;
+
+      if (typeof credit === "string") {
+        setCreditOpen(draggableId);
+      } else {
+        let tempCredits = {
+          ...courseCredits,
+          [draggableId]: courses.filter(
+            (c) => String(c.courseNum) === String(draggableId)
+          )[0].credits,
+        };
+        setCourseCredits(tempCredits);
+      }
+    } else {
+      let tempCredits = {
+        ...courseCredits,
+      };
+      delete tempCredits[draggableId];
+      setCourseCredits(tempCredits);
     }
 
     // update data with new column values
@@ -270,6 +307,14 @@ export default function Planner({
         setShowSnack={setShowSnack}
         msg={snackMsg}
       />
+      <CreditDialog
+        open={creditOpen}
+        setOpen={setCreditOpen}
+        courseCredits={courseCredits}
+        setCourseCredits={setCourseCredits}
+      />
+      <InstructionModal open={instructionModal} setOpen={setInstructionModal} />
+      <Button onClick={handleOpenInstructions}>Instructions</Button>
       <DragDropContext
         onDragEnd={onDragEnd}
         onDragStart={onDragStart}
@@ -367,6 +412,7 @@ export default function Planner({
               tabInfo={tabInfo}
               plannedCourses={plannedCourses}
               csvData={csvData}
+              courseCredits={courseCredits}
             ></Checklist>
           </Paper>
         </Container>

@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.js": "/ms-advisor/static/js/main.57967d03.chunk.js",
-    "main.js.map": "/ms-advisor/static/js/main.57967d03.chunk.js.map",
-    "runtime-main.js": "/ms-advisor/static/js/runtime-main.142aaa42.js",
-    "runtime-main.js.map": "/ms-advisor/static/js/runtime-main.142aaa42.js.map",
+    "main.js": "/ms-advisor/static/js/main.def1d853.chunk.js",
+    "main.js.map": "/ms-advisor/static/js/main.def1d853.chunk.js.map",
+    "runtime-main.js": "/ms-advisor/static/js/runtime-main.aed4f6ae.js",
+    "runtime-main.js.map": "/ms-advisor/static/js/runtime-main.aed4f6ae.js.map",
     "static/css/2.9c4bf596.chunk.css": "/ms-advisor/static/css/2.9c4bf596.chunk.css",
-    "static/js/2.4b65173b.chunk.js": "/ms-advisor/static/js/2.4b65173b.chunk.js",
-    "static/js/2.4b65173b.chunk.js.map": "/ms-advisor/static/js/2.4b65173b.chunk.js.map",
-    "static/js/3.d4a41a71.chunk.js": "/ms-advisor/static/js/3.d4a41a71.chunk.js",
-    "static/js/3.d4a41a71.chunk.js.map": "/ms-advisor/static/js/3.d4a41a71.chunk.js.map",
+    "static/js/2.bcf490bb.chunk.js": "/ms-advisor/static/js/2.bcf490bb.chunk.js",
+    "static/js/2.bcf490bb.chunk.js.map": "/ms-advisor/static/js/2.bcf490bb.chunk.js.map",
+    "static/js/3.329865d5.chunk.js": "/ms-advisor/static/js/3.329865d5.chunk.js",
+    "static/js/3.329865d5.chunk.js.map": "/ms-advisor/static/js/3.329865d5.chunk.js.map",
     "index.html": "/ms-advisor/index.html",
     "static/css/2.9c4bf596.chunk.css.map": "/ms-advisor/static/css/2.9c4bf596.chunk.css.map",
-    "static/js/2.4b65173b.chunk.js.LICENSE.txt": "/ms-advisor/static/js/2.4b65173b.chunk.js.LICENSE.txt",
+    "static/js/2.bcf490bb.chunk.js.LICENSE.txt": "/ms-advisor/static/js/2.bcf490bb.chunk.js.LICENSE.txt",
     "static/media/index.css": "/ms-advisor/static/media/roboto-latin-900italic.cb5ad999.woff2",
-    "static/media/rotation_cleaned.27f6dfce.csv": "/ms-advisor/static/media/rotation_cleaned.27f6dfce.csv"
+    "static/media/rotation_cleaned.0b60f382.csv": "/ms-advisor/static/media/rotation_cleaned.0b60f382.csv"
   },
   "entrypoints": [
-    "static/js/runtime-main.142aaa42.js",
+    "static/js/runtime-main.aed4f6ae.js",
     "static/css/2.9c4bf596.chunk.css",
-    "static/js/2.4b65173b.chunk.js",
-    "static/js/main.57967d03.chunk.js"
+    "static/js/2.bcf490bb.chunk.js",
+    "static/js/main.def1d853.chunk.js"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/ms-advisor/static/js/main.d66a353e.chunk.js",
-    "main.js.map": "/ms-advisor/static/js/main.d66a353e.chunk.js.map",
+    "main.js": "/ms-advisor/static/js/main.f9a47aea.chunk.js",
+    "main.js.map": "/ms-advisor/static/js/main.f9a47aea.chunk.js.map",
     "runtime-main.js": "/ms-advisor/static/js/runtime-main.aed4f6ae.js",
     "runtime-main.js.map": "/ms-advisor/static/js/runtime-main.aed4f6ae.js.map",
     "static/css/2.9c4bf596.chunk.css": "/ms-advisor/static/css/2.9c4bf596.chunk.css",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.aed4f6ae.js",
     "static/css/2.9c4bf596.chunk.css",
     "static/js/2.bcf490bb.chunk.js",
-    "static/js/main.d66a353e.chunk.js"
+    "static/js/main.f9a47aea.chunk.js"
   ]
 }

@@ -96,6 +96,8 @@ export default function QuestionTabs({
           tabInfo={tabInfo}
           setTabInfo={setTabInfo}
           csvData={csvData}
+          courseCredits={courseCredits}
+          setCourseCredits={setCourseCredits}
         />
       </TabPanel>
       <TabPanel value={value} index={5}>

@@ -29,7 +29,8 @@ export default function DisplayList(props) {
   function getCourseCount() {
     const takenOrPlanned = _union(
       props.tabInfo.completed,
-      props.plannedCourses
+      props.plannedCourses,
+      props.tabInfo.waived
     );
     const courses = _intersection(takenOrPlanned, props.displayArray);
     return courses.length;

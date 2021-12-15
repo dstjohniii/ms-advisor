@@ -10,13 +10,26 @@ import {
 } from "../../../helper/rotationHelper";
 import _union from "lodash/union";
 
-export default function WaivedCourses({ tabInfo, setTabInfo, csvData }) {
+export default function WaivedCourses({
+  tabInfo,
+  setTabInfo,
+  csvData,
+  courseCredits,
+  setCourseCredits
+}) {
   const handleChange = (e) => {
     if (e.target.checked) {
       let newArray = tabInfo.waived.slice();
       newArray.push(e.target.id);
       const newTabInfo = { ...tabInfo, waived: newArray };
       setTabInfo(newTabInfo);
+
+      // remove credits
+      let tempCredits = {
+        ...courseCredits,
+      };
+      delete tempCredits[e.target.id];
+      setCourseCredits(tempCredits);
     } else {
       let newArray = tabInfo.waived.slice();
       let filteredArray = newArray.filter((item) => item !== e.target.id);

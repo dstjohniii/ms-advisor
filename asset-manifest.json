@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.js": "/ms-advisor/static/js/main.f9a47aea.chunk.js",
+    "main.js.map": "/ms-advisor/static/js/main.f9a47aea.chunk.js.map",
+    "runtime-main.js": "/ms-advisor/static/js/runtime-main.aed4f6ae.js",
+    "runtime-main.js.map": "/ms-advisor/static/js/runtime-main.aed4f6ae.js.map",
+    "static/css/2.9c4bf596.chunk.css": "/ms-advisor/static/css/2.9c4bf596.chunk.css",
+    "static/js/2.bcf490bb.chunk.js": "/ms-advisor/static/js/2.bcf490bb.chunk.js",
+    "static/js/2.bcf490bb.chunk.js.map": "/ms-advisor/static/js/2.bcf490bb.chunk.js.map",
+    "static/js/3.329865d5.chunk.js": "/ms-advisor/static/js/3.329865d5.chunk.js",
+    "static/js/3.329865d5.chunk.js.map": "/ms-advisor/static/js/3.329865d5.chunk.js.map",
+    "index.html": "/ms-advisor/index.html",
+    "static/css/2.9c4bf596.chunk.css.map": "/ms-advisor/static/css/2.9c4bf596.chunk.css.map",
+    "static/js/2.bcf490bb.chunk.js.LICENSE.txt": "/ms-advisor/static/js/2.bcf490bb.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/ms-advisor/static/media/roboto-latin-900italic.cb5ad999.woff2",
+    "static/media/rotation_cleaned.950ebfa3.csv": "/ms-advisor/static/media/rotation_cleaned.950ebfa3.csv"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aed4f6ae.js",
+    "static/css/2.9c4bf596.chunk.css",
+    "static/js/2.bcf490bb.chunk.js",
+    "static/js/main.f9a47aea.chunk.js"
+  ]
+}
